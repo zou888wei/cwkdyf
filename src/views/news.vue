@@ -1,67 +1,104 @@
 <template>
-  <div>
-    <div class="nav clear">
-      <a class="zhichou vivify popIn">
-        <!-- <div class="watermark blue">关于我们</div> -->
-        <!-- <logo type="zhongtai"></logo> -->
-        <div style="font-size:32px">关于我们</div>
-        <!-- <logo class="mobile" type="mzhichou"></logo> -->
-        <h3>孝感诚维康大药房有限公司</h3>
-        <h4>是一家中西结合的大药房</h4>
-        <h4>成立于2007年>></h4>
-      </a>
-      <a class="hr vivify popIn delay-200">
-        <!-- <div class="watermark green">企业文化</div> -->
-        <div style="font-size:32px">企业文化</div>
-        <!-- <logo class="mobile" type="mhr"></logo> -->
-        <h3>最贵的药不一定最好</h3>
-        <h4>最便宜的药不一定最经济</h4>
-        <h4>正确、安全、合理的用药,才是您最需要的>></h4>
-      </a>
-      <a class="plus vivify popIn delay-400">
-        <!-- <div class="watermark blue">新闻资讯</div> -->
-        <div style="font-size:32px">新闻资讯</div>
-        <!-- <logo class="mobile" type="mplus"></logo> -->
-        <h3>售价低至几十元</h3>
-        <h4>低价水光针</h4>
-        <h4>卖的什么“药”？>></h4>
-      </a>
-    </div>
-   <!-- <a class="join-zhichou" href="http://wx.zhichou.com/#/me/resume">
-      我是牛人，入驻智筹 >>
-    </a> -->
-    <div class="service w-8/12 flex py-24">
-      <div class="w-8/12 mr-5">
-        <img src="./img/cwkdyf.jpg" alt="">
-      </div>
-      <div class="mr-5">
-        <h2 class="text-3xl font-medium mb-2">诚维康大药房简介：</h2>
-        <span>孝感诚维康大药房有限公司是一家中西结合的大药房，成立于2007年，一直坚持最贵的药不一定最好，
-          最便宜的药不一定最经济，正确、安全、合理的用药，才是您最需要的经营理念为用户提供最优质的服务，
-          严格的把控药品来源，打造放心、健康、便民的平价大药房。</span>
-      </div>
-      <div class="w-4/6">
-        <div class="flex">
-          <div class="flex border-solid border border-green-500 p-4 mr-5 mb-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">放心</p>
-          </div>
-          <div class="flex border-solid border border-green-500 p-4 mr-5 mb-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">健康</p>
-          </div>
+  <div class="w-8/12 m-auto">
+    <div class="service py-14">
+      <div class="flex flex-row">
+        <div class="w-9/12">
+          <el-collapse v-model="activeNames" class="pr-5">
+            <el-collapse-item name="1" disabled>
+              <template slot="title">
+                <div class="flex flex-row w-full">
+                  <div class="px-5 text-gray-900 text-2xl flex-1">
+                    售价低至几十元 低价水光针，卖的什么“药”？
+                  </div>
+                  <div class="mr-8">2021-07-16</div>
+                </div>
+              </template>
+              <div class="px-5">
+                <p>颜值经济”正处风口，水光针是很多医美新手的入门级项目。作为“轻医美”的爆款品类，无需动刀、恢复速度快的水光针被商家热推。</p>
+                <p>市面上的水光针价格从几十元到几千元不等。价格差别如此之大，背后是否暗藏套路？《工人日报》记者对此进行了调查。
+                  <a href="http://news.pharmnet.com.cn/news/2021/07/16/556900.html" target="_blcok">>>></a></p>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="2" disabled>
+              <template slot="title">
+                <div class="flex flex-row w-full">
+                  <div class="px-5 text-gray-900 text-2xl flex-1">
+                    药店第二次变革或来了
+                  </div>
+                  <div class="mr-8">2021-07-22</div>
+                </div>
+              </template>
+              <div class="px-5">
+                <p>药店行业情况怎么样？根据IQVIA艾昆纬今年一季度显示2021年一季度全国药店销售额同比去年下降了1.4%，
+                  也就是说销售额的蛋糕在缩小；但根据国家药监局最新数据显示呢，今年一季度全国新增了7100家药店。</p>
+                <p>一边数据显示行业蛋糕越来越小药店日趋艰难，一边有人看好这个行业涌进来争抢蛋糕。</p>
+                <p>那药店行业到底是好是坏呢？你从不同的面分析会得到不同答案，行业现状简直成了薛定谔的猫，你说它好就好，反之亦然。
+                  <a href="http://news.pharmnet.com.cn/news/2021/07/22/557115.html" target="_blcok">>>></a></p>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="3" disabled>
+              <template slot="title">
+                <div class="flex flex-row w-full">
+                  <div class="px-5 text-gray-900 text-2xl flex-1">
+                    巨头加入！外卖刷医保扩面
+                  </div>
+                  <div class="mr-8">2021-07-09</div>
+                </div>
+              </template>
+              <div class="px-5">
+                <p>日前，辽宁沈阳首批62家试点定点零售药店正式在外卖平台上开通医保支付购药服务。</p>
+                <p>据悉，这是东北首个“互联网%20”医保数字化应用场景，该场景由沈阳市医保局、医保中心与美团买药共同打造，
+                  包括成大方圆连锁药店、海王星辰健康药房、国大药房等连锁均参加了相关试点。
+                  <a href="http://news.pharmnet.com.cn/news/2021/07/09/556668.html" target="_blcok">>>></a></p>
+              </div>
+            </el-collapse-item>
+            <el-collapse-item name="4" disabled>
+              <template slot="title">
+                <div class="flex flex-row w-full">
+                  <div class="px-5 text-gray-900 text-2xl flex-1">
+                    网上药店，即将面临严管
+                  </div>
+                  <div class="mr-8">2021-07-23</div>
+                </div>
+              </template>
+              <div class="px-5">
+                <p>近日，国务院办公厅印发《全国深化“放管服”改革着力培育和激发市场主体活力电视电话会议重点任务分工方案》
+                  （以下简称《分工方案》），对深化“放管服”改革优化营商环境工作作出部署。</p>
+                <p>《分工方案》强调，对涉及安全生产、人民身体健康和生命安全等领域和事项，切实把好每一道关口，确保质量和安全。</p>
+                <p>其中，相关部门要加快制定药品经营、药品网络销售的监督管理办法，强化质量监管，提升监管效能。
+                  <a href="http://news.pharmnet.com.cn/news/2021/07/23/557165.html" target="_blcok">>>></a></p>
+              </div>
+            </el-collapse-item>
+          </el-collapse>
         </div>
-        <div class="flex">
-          <div class="flex border-solid border border-green-500 p-4 mr-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">养生</p>
-          </div>
-          <div class="flex border-solid border border-green-500 p-4 mr-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">经济</p>
-          </div>
+        <div class="w-60">
+          <img src="./img/hb.jpg" alt="">
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        activeNames: ['1', '2', '3', '4']
+      };
+    }
+  }
+</script>
+
+<style scoped>
+p {
+  text-indent:30px;
+}
+
+.el-collapse >>> .el-collapse-item__arrow {
+  display: none;
+}
+
+.text-2xl {
+  line-height: inherit;
+}
+</style>

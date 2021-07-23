@@ -1,65 +1,36 @@
 <template>
-  <div>
-    <div class="nav clear">
-      <a class="zhichou vivify popIn">
-        <!-- <div class="watermark blue">关于我们</div> -->
-        <!-- <logo type="zhongtai"></logo> -->
-        <div style="font-size:32px">关于我们</div>
-        <!-- <logo class="mobile" type="mzhichou"></logo> -->
-        <h3>孝感诚维康大药房有限公司</h3>
-        <h4>是一家中西结合的大药房</h4>
-        <h4>成立于2007年>></h4>
-      </a>
-      <a class="hr vivify popIn delay-200">
-        <!-- <div class="watermark green">企业文化</div> -->
-        <div style="font-size:32px">企业文化</div>
-        <!-- <logo class="mobile" type="mhr"></logo> -->
-        <h3>最贵的药不一定最好</h3>
-        <h4>最便宜的药不一定最经济</h4>
-        <h4>正确、安全、合理的用药,才是您最需要的>></h4>
-      </a>
-      <a class="plus vivify popIn delay-400">
-        <!-- <div class="watermark blue">新闻资讯</div> -->
-        <div style="font-size:32px">新闻资讯</div>
-        <!-- <logo class="mobile" type="mplus"></logo> -->
-        <h3>售价低至几十元</h3>
-        <h4>低价水光针</h4>
-        <h4>卖的什么“药”？>></h4>
-      </a>
-    </div>
-   <!-- <a class="join-zhichou" href="http://wx.zhichou.com/#/me/resume">
-      我是牛人，入驻智筹 >>
-    </a> -->
-    <div class="service w-8/12 flex py-24">
-      <div class="w-8/12 mr-5">
-        <img src="./img/cwkdyf.jpg" alt="">
-      </div>
-      <div class="mr-5">
-        <h2 class="text-3xl font-medium mb-2">诚维康大药房简介：</h2>
-        <span>孝感诚维康大药房有限公司是一家中西结合的大药房，成立于2007年，一直坚持最贵的药不一定最好，
-          最便宜的药不一定最经济，正确、安全、合理的用药，才是您最需要的经营理念为用户提供最优质的服务，
-          严格的把控药品来源，打造放心、健康、便民的平价大药房。</span>
-      </div>
-      <div class="w-4/6">
-        <div class="flex">
-          <div class="flex border-solid border border-green-500 p-4 mr-5 mb-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">放心</p>
+  <div class="w-8/12 m-auto">
+    <div class="service py-14">
+      <div class="flex flex-row">
+        <div class="w-9/12">
+          <div class="flex flex-row mb-5">
+            <div class="w-1/2 mr-5">
+              <img src="./img/cwkdyf.jpg" alt="">
+            </div>
+            <div class="w-1/2 mr-5">
+              <img src="./img/cwkdyf.jpg" alt="">
+            </div>
           </div>
-          <div class="flex border-solid border border-green-500 p-4 mr-5 mb-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">健康</p>
+          <div class="flex flex-row mb-5">
+            <div class="w-1/2 mr-5">
+              <img src="./img/cwkdyf.jpg" alt="">
+            </div>
+            <div class="w-1/2 mr-5">
+              <img src="./img/cwkdyf.jpg" alt="">
+            </div>
+          </div>
+          <div class="mr-5">
+            <p style="text-indent:30px">孝感诚维康大药房有限公司成立于2007年，坐落于孝感市北京路78号，是一家民营药店，经历十多年成长，
+              一直坚持最贵的药不一定最好，最便宜的药不一定最经济，正确、安全、合理的用药，才是您最需要的经营理念为用户提供最优质的服务，
+              打造放心、健康、便民的平价大药房。至此，深受广大客户的信任和依赖。</p>
+            <p style="text-indent:30px">孝感诚维康大药房有限公司最初源于诚信维康大药房，寓意“真诚，信任，维护，健康”，严格把控药品来源和质量，用心对待每一位患者，
+              不虚假、不盲目的推荐药品，用最合理的、最适合的药品来治疗病情，并随着互联网时代来临, 不断完善店铺设备设施，使患者足户不出门就
+              能了解病情，购买到合适的药品，大大的提高便捷性。
+            </p>
           </div>
         </div>
-        <div class="flex">
-          <div class="flex border-solid border border-green-500 p-4 mr-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">养生</p>
-          </div>
-          <div class="flex border-solid border border-green-500 p-4 mr-5">
-            <a class="w-5 mr-2"><img src="./img/feature8.png" alt=""></a>
-            <p class="tracking-widest">经济</p>
-          </div>
+        <div class="w-60">
+          <img src="./img/hb.jpg" alt="">
         </div>
       </div>
     </div>

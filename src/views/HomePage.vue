@@ -15,7 +15,13 @@
          <zui-button @click="onButtonClick('home')">首页</zui-button>
     </zui-header>
     <div class="banner vivify fadeIn"></div>
-    <components :is="containerBox" />
+    <div class="w-8/12 m-auto mt-10" v-if="containerBox != 'Home'">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>当前位置：<span @click="onButtonClick('home')">首页</span></el-breadcrumb-item>
+        <el-breadcrumb-item>{{menus[containerBox.toLowerCase()]}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <components :is="containerBox" @onButtonClick="onButtonClick"/>
     <zui-footer/>
   </page>
 </template>
@@ -64,7 +70,15 @@
               {text: '联系我们', action: this.golink}
             ]
         },
-        containerBox: "Home"
+        containerBox: "Home",
+        menus: {
+          home: "首页",
+          about: "关于我们",
+          product: "产品中心",
+          culture: "企业文化",
+          news: "新闻动态",
+          link: "联系我们",
+        }
       }
     },
    methods: {
