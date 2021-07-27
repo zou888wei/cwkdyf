@@ -5,18 +5,18 @@
         <div class="w-9/12">
           <div class="flex flex-row mb-5">
             <div class="w-1/2 mr-5">
-              <img src="./img/cwkdyf.jpg" alt="">
+              <img src="./img/cwkdyf1.jpg" alt="">
             </div>
             <div class="w-1/2 mr-5">
-              <img src="./img/cwkdyf.jpg" alt="">
+              <img src="./img/cwkdyf2.jpg" alt="">
             </div>
           </div>
           <div class="flex flex-row mb-5">
             <div class="w-1/2 mr-5">
-              <img src="./img/cwkdyf.jpg" alt="">
+              <img src="./img/cwkdyf3.jpg" alt="">
             </div>
             <div class="w-1/2 mr-5">
-              <img src="./img/cwkdyf.jpg" alt="">
+              <img src="./img/cwkdyf4.jpg" alt="">
             </div>
           </div>
           <div class="mr-5">

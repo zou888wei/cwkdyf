@@ -1,0 +1,47 @@
+{
+  "form": {
+    "name": "克咳片",
+    "title": "葫芦娃 克咳片 0.46g*18/盒 止嗽定喘祛痰",
+    "specification": "0.46g * 9片 * 2板",
+    "factory": "海南葫芦娃药业集团股份有限公司",
+    "approval": "国药准字Z20050174",
+    "type": "中成药",
+    "person": "儿童"
+  },
+  "carouselSrc": [
+    {
+      "img": "yp21", 
+      "title": "克咳片"
+    },
+    {
+      "img": "yp22", 
+      "title": "克咳片"
+    },
+    {
+      "img": "yp23", 
+      "title": "克咳片"
+    }
+  ],
+  "detailSrc": [
+    {
+      "img": "yp21", 
+      "title": "克咳片"
+    },
+    {
+      "img": "yp22", 
+      "title": "克咳片"
+    },
+    {
+      "img": "yp23", 
+      "title": "克咳片"
+    },
+    {
+      "img": "yp24", 
+      "title": "克咳片"
+    },
+    {
+      "img": "yp25", 
+      "title": "克咳片"
+    }
+  ]
+}

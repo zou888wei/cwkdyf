@@ -5,28 +5,30 @@
         <div class="w-9/12">
           <el-tabs v-model="activeName">
             <el-tab-pane label="门店展示" name="org">
-              <div class="flex flex-row mb-5">
-                <div class="mr-5">
-                  <img src="./img/cwkdyf.jpg" alt="">
+              <div class="flex mb-5">
+                <div class="w-1/3">
+                  <a class="mr-5 block"><img src="./img/cwkdyf2.jpg" alt=""></a>
                 </div>
-                <div class="mr-5">
-                  <img src="./img/cwkdyf.jpg" alt="">
+                <div class="w-1/3">
+                  <a class="mr-5 block"><img src="./img/cwkdyf3.jpg" alt=""></a>
                 </div>
-                <div class="mr-5">
-                  <img src="./img/cwkdyf.jpg" alt="">
+                <div class="w-1/3">
+                  <a class="mr-5 block"><img src="./img/cwkdyf4.jpg" alt=""></a>
+                </div>
+              </div>
+              <div class="flex mb-5">
+                <div class="w-1/3">
+                  <a class="mr-5 block"><img src="./img/cwkdyf5.jpg" alt=""></a>
                 </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="员工风采" name="person">
-              <div class="flex flex-row mb-5">
-                <div class="mr-5">
-                  <img src="./img/cwkdyf.jpg" alt="">
+              <div class="flex mb-5">
+                <div class="w-1/3">
+                  <a class="mr-5 block"><img src="./img/cwkdyf6.jpg" alt=""></a>
                 </div>
-                <div class="mr-5">
-                  <img src="./img/cwkdyf.jpg" alt="">
-                </div>
-                <div class="mr-5 invisible">
-                  <img src="./img/cwkdyf.jpg" alt="">
+                <div class="w-1/3">
+                  <a class="mr-5 block"><img src="./img/cwkdyf7.jpg" alt=""></a>
                 </div>
               </div>
             </el-tab-pane>

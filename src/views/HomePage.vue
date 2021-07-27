@@ -1,27 +1,32 @@
 <template>
   <page class="home-page">
     <zui-header>
-      <logo type="xiaoyanyun" href="/"></logo>
+      <logo type="xiaoyanyun" href="/home"></logo>
         <h4 class="zui-logo-text">
           <el-divider direction="vertical"></el-divider>诚维康大药房
         </h4>
          <div class="zui-rightcol" @click="openMenu" style="color: #0b8ba5;">◄目录►</div>
          <drop-list :config="configData" ref="droplist"></drop-list>
          <zui-button @click="onButtonClick('link')">联系我们</zui-button>
-         <zui-button @click="onButtonClick('news')">新闻动态</zui-button>
+         <zui-button @click="onButtonClick('news')">新闻资讯</zui-button>
          <zui-button @click="onButtonClick('culture')">企业文化</zui-button>
          <zui-button @click="onButtonClick('product')">产品中心</zui-button>
          <zui-button @click="onButtonClick('about')">关于我们</zui-button>
          <zui-button @click="onButtonClick('home')">首页</zui-button>
     </zui-header>
     <div class="banner vivify fadeIn"></div>
-    <div class="w-8/12 m-auto mt-10" v-if="containerBox != 'Home'">
+    <div class="w-8/12 m-auto mt-10" v-if="$router.currentRoute.name != 'Home' && $router.currentRoute.path != '/'">
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item>当前位置：<span @click="onButtonClick('home')">首页</span></el-breadcrumb-item>
-        <el-breadcrumb-item>{{menus[containerBox.toLowerCase()]}}</el-breadcrumb-item>
+        <el-breadcrumb-item>当前位置：<a @click="onButtonClick('home')">首页</a></el-breadcrumb-item>
+        <el-breadcrumb-item>
+          <span v-if="$router.currentRoute.name != 'ProductDetail'">{{menus[$router.currentRoute.name.toLowerCase()]}}</span>
+          <a v-else @click="onButtonClick('product')">{{menus[$router.currentRoute.name.toLowerCase()]}}</a>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-if="$router.currentRoute.name == 'ProductDetail'">{{$router.currentRoute.params.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <components :is="containerBox" @onButtonClick="onButtonClick"/>
+    <!-- <components :is="containerBox" @onButtonClick="onButtonClick"/> -->
+    <router-view />
     <zui-footer/>
   </page>
 </template>
@@ -38,14 +43,12 @@
   import feature4 from '../assets/img/feature4.png'
   import Util from '../Util'
   import DropList from 'vue-droplist'
-  import Home from './home'
-  import About from './about'
-  import Product from './product'
-  import Culture from './culture'
-  import News from './news'
-  import Link from './link'
+
+  import { routerLink } from "@/mixins"
+  
   export default{
-    components: {Page, Logo, ZuiHeader, ZuiFooter,ZuiButton,DropList, Home, About,Product,Culture,News,Link},
+    mixins: [routerLink],
+    components: {Page, Logo, ZuiHeader, ZuiFooter, ZuiButton, DropList},
     data () {
       return {
         feature1: feature1,
@@ -70,21 +73,18 @@
               {text: '联系我们', action: this.golink}
             ]
         },
-        containerBox: "Home",
         menus: {
           home: "首页",
           about: "关于我们",
           product: "产品中心",
+          productdetail: "产品中心",
           culture: "企业文化",
           news: "新闻动态",
           link: "联系我们",
         }
       }
     },
-   methods: {
-      onButtonClick: function (e) {
-        this.containerBox = e.charAt(0).toUpperCase() + e.slice(1)
-      },
+    methods: {
       openMenu: function () {
        this.$refs.droplist.show()
       },

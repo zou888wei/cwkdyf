@@ -1,0 +1,43 @@
+{
+  "form": {
+    "name": "小儿感冒颗粒",
+    "title": "葫芦娃 小儿感冒颗粒 6g*10袋/盒 风热感冒儿童感冒用药",
+    "specification": "6g * 10袋",
+    "factory": "广西维威制药有限公司",
+    "approval": "国药准字Z45021857",
+    "type": "中成药",
+    "person": "儿童"
+  },
+  "carouselSrc": [
+    {
+      "img": "yp11", 
+      "title": "小儿感冒颗粒"
+    },
+    {
+      "img": "yp12", 
+      "title": "小儿感冒颗粒"
+    },
+    {
+      "img": "yp13", 
+      "title": "小儿感冒颗粒"
+    }
+  ],
+  "detailSrc": [
+    {
+      "img": "yp11", 
+      "title": "小儿感冒颗粒"
+    },
+    {
+      "img": "yp12", 
+      "title": "小儿感冒颗粒"
+    },
+    {
+      "img": "yp13", 
+      "title": "小儿感冒颗粒"
+    },
+    {
+      "img": "yp14", 
+      "title": "小儿感冒颗粒"
+    }
+  ]
+}

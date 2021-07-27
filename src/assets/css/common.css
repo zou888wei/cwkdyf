@@ -21,3 +21,11 @@ img {
 .w-100pct {
   width: 100%;
 }
+
+.form-style .el-form-item__label {
+  background: #E5E7EB;
+}
+
+.form-style .mb-0{
+  margin-bottom: 0 !important;
+}
