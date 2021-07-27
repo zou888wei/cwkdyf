@@ -7,12 +7,26 @@
         </h4>
          <div class="zui-rightcol" @click="openMenu" style="color: #0b8ba5;">◄目录►</div>
          <drop-list :config="configData" ref="droplist"></drop-list>
-         <zui-button @click="onButtonClick('link')">联系我们</zui-button>
-         <zui-button @click="onButtonClick('news')">新闻资讯</zui-button>
-         <zui-button @click="onButtonClick('culture')">企业文化</zui-button>
-         <zui-button @click="onButtonClick('product')">产品中心</zui-button>
-         <zui-button @click="onButtonClick('about')">关于我们</zui-button>
-         <zui-button @click="onButtonClick('home')">首页</zui-button>
+         <div class="float-right flex" style="margin: 30px 30px 0 0;">
+           <div class="mx-3">
+            <el-button style="padding: 12px 20px;" :class="[$router.currentRoute.name == 'Home'?'el-button--primary':'el-button--text']" @click="onButtonClick('home')">首页</el-button>
+           </div>
+           <div class="mx-3">
+            <el-button style="padding: 12px 20px;" :class="[$router.currentRoute.name == 'About'?'el-button--primary':'el-button--text']" @click="onButtonClick('about')">关于我们</el-button>
+           </div>
+           <div class="mx-3">
+            <el-button style="padding: 12px 20px;" :class="[($router.currentRoute.name == 'Product' || $router.currentRoute.name == 'ProductDetail')?'el-button--primary':'el-button--text']" @click="onButtonClick('product')">产品中心</el-button>
+           </div>
+           <div class="mx-3">
+            <el-button style="padding: 12px 20px;" :class="[$router.currentRoute.name == 'Culture'?'el-button--primary':'el-button--text']" @click="onButtonClick('culture')">企业文化</el-button>
+           </div>
+           <div class="mx-3">
+            <el-button style="padding: 12px 20px;" :class="[$router.currentRoute.name == 'News'?'el-button--primary':'el-button--text']" @click="onButtonClick('news')">新闻资讯</el-button>
+           </div>
+           <div class="mx-3">
+            <el-button style="padding: 12px 20px;" :class="[$router.currentRoute.name == 'Link'?'el-button--primary':'el-button--text']" @click="onButtonClick('link')">联系我们</el-button>
+           </div>
+         </div>
     </zui-header>
     <div class="banner vivify fadeIn"></div>
     <div class="w-8/12 m-auto mt-10" v-if="$router.currentRoute.name != 'Home' && $router.currentRoute.path != '/'">
