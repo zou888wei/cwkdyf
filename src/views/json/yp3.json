@@ -6,46 +6,9 @@
     "factory": "海南葫芦娃药业集团股份有限公司",
     "approval": "国药准字Z20033152",
     "type": "中成药",
-    "person": "儿童"
+    "person": "儿童",
+    "brand": "葫芦娃"
   },
-  "carouselSrc": [
-    {
-      "img": "yp31", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp32", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp34", 
-      "title": "小儿肺热咳喘颗粒"
-    }
-  ],
-  "detailSrc": [
-    {
-      "img": "yp31", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp32", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp33", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp34", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp36", 
-      "title": "小儿肺热咳喘颗粒"
-    },
-    {
-      "img": "yp35", 
-      "title": "小儿肺热咳喘颗粒"
-    }
-  ]
+  "carouselSrc": [1,2,4],
+  "detailSrc": [1,2,3,4,5,6]
 }

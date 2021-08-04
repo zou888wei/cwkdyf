@@ -1,47 +1,14 @@
 {
   "form": {
-    "name": "万痛筋骨贴",
-    "title": "冠安堂 万痛筋骨贴 6贴装 肩周炎颈椎病膝盖疼关节腰疼滑膜炎筋膜炎止痛膏腰肌劳损半月板损伤足跟痛理疗贴",
-    "specification": "7cm * 10cm * 3贴/袋 * 2袋/盒",
-    "factory": "湖北冠安堂药业有限公司",
-    "approval": "鄂天械备20160012号",
-    "type": "",
-    "person": ""
+    "name": "复方氨酚烷胺胶囊",
+    "title": "葫芦娃 复方氨酚烷胺胶囊 16粒/盒",
+    "specification": "8粒*2板",
+    "factory": "海南葫芦娃药业集团股份有限公司",
+    "approval": "国药准字H20058400",
+    "type": "（非处方药）化学药制剂",
+    "person": "儿童",
+    "brand": "葫芦娃"
   },
-  "carouselSrc": [
-    {
-      "img": "yp51", 
-      "title": "万痛筋骨贴"
-    },
-    {
-      "img": "yp52", 
-      "title": "万痛筋骨贴"
-    },
-    {
-      "img": "yp53", 
-      "title": "万痛筋骨贴"
-    }
-  ],
-  "detailSrc": [
-    {
-      "img": "yp51", 
-      "title": "万痛筋骨贴"
-    },
-    {
-      "img": "yp52", 
-      "title": "万痛筋骨贴"
-    },
-    {
-      "img": "yp53", 
-      "title": "万痛筋骨贴"
-    },
-    {
-      "img": "yp54", 
-      "title": "万痛筋骨贴"
-    },
-    {
-      "img": "yp55", 
-      "title": "万痛筋骨贴"
-    }
-  ]
+  "carouselSrc": [1,2,3],
+  "detailSrc": [1,2,3,4]
 }

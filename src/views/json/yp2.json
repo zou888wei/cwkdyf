@@ -1,47 +1,14 @@
 {
   "form": {
-    "name": "克咳片",
-    "title": "葫芦娃 克咳片 0.46g*18/盒 止嗽定喘祛痰",
-    "specification": "0.46g * 9片 * 2板",
-    "factory": "海南葫芦娃药业集团股份有限公司",
-    "approval": "国药准字Z20050174",
+    "name": "银黄清肺胶囊",
+    "title": "安邦 银黄清肺胶囊 0.15g*36粒 清肺化痰 止咳平喘 慢性支气管炎 咳嗽",
+    "specification": "0.15g*12粒*3板",
+    "factory": "湖南安邦制药有限公司",
+    "approval": "国药准字Z20020075",
     "type": "中成药",
-    "person": "儿童"
+    "person": "成人",
+    "brand": "安邦"
   },
-  "carouselSrc": [
-    {
-      "img": "yp21", 
-      "title": "克咳片"
-    },
-    {
-      "img": "yp22", 
-      "title": "克咳片"
-    },
-    {
-      "img": "yp23", 
-      "title": "克咳片"
-    }
-  ],
-  "detailSrc": [
-    {
-      "img": "yp21", 
-      "title": "克咳片"
-    },
-    {
-      "img": "yp22", 
-      "title": "克咳片"
-    },
-    {
-      "img": "yp23", 
-      "title": "克咳片"
-    },
-    {
-      "img": "yp24", 
-      "title": "克咳片"
-    },
-    {
-      "img": "yp25", 
-      "title": "克咳片"
-    }
-  ]
+  "carouselSrc": [1,2,3],
+  "detailSrc": [1,2,3,4,5,6]
 }

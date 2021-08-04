@@ -1,43 +1,14 @@
 {
   "form": {
-    "name": "小儿感冒颗粒",
-    "title": "葫芦娃 小儿感冒颗粒 6g*10袋/盒 风热感冒儿童感冒用药",
-    "specification": "6g * 10袋",
-    "factory": "广西维威制药有限公司",
-    "approval": "国药准字Z45021857",
-    "type": "中成药",
-    "person": "儿童"
+    "name": "阿莫西林胶囊",
+    "title": "安邦 阿莫西林胶囊 0.25g*24粒/盒 上呼吸道感染泌尿生殖道感染中耳炎鼻窦炎咽炎扁桃体炎肺炎西",
+    "specification": "0.25g*24粒/盒",
+    "factory": "湖南安邦制药有限公司",
+    "approval": "国药准字H43022245",
+    "type": "（处方药）中成药",
+    "person": "不限",
+    "brand": "安邦"
   },
-  "carouselSrc": [
-    {
-      "img": "yp11", 
-      "title": "小儿感冒颗粒"
-    },
-    {
-      "img": "yp12", 
-      "title": "小儿感冒颗粒"
-    },
-    {
-      "img": "yp13", 
-      "title": "小儿感冒颗粒"
-    }
-  ],
-  "detailSrc": [
-    {
-      "img": "yp11", 
-      "title": "小儿感冒颗粒"
-    },
-    {
-      "img": "yp12", 
-      "title": "小儿感冒颗粒"
-    },
-    {
-      "img": "yp13", 
-      "title": "小儿感冒颗粒"
-    },
-    {
-      "img": "yp14", 
-      "title": "小儿感冒颗粒"
-    }
-  ]
+  "carouselSrc": [1,2,3],
+  "detailSrc": [1,2,3,4,5]
 }

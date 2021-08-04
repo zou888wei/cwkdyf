@@ -1,39 +1,14 @@
 {
   "form": {
-    "name": "百合康牌 维生素C含片",
-    "title": "百合康牌 维生素C含片 1.2g*100粒/瓶 补充维生素C",
-    "specification": "1.2g * 100片",
-    "factory": "威海百合生物技术股份有限公司",
-    "approval": "国食健字G20090200",
-    "type": "中成药",
-    "person": "中老年，成人，儿童"
+    "name": "精制银翘解毒片",
+    "title": "安邦 可他迪 精制银翘解毒片 24片 发烧发冷头痛咳嗽",
+    "specification": "24片",
+    "factory": "湖南安邦制药有限公司",
+    "approval": "国药准字Z43020175",
+    "type": "（非处方药）中成药",
+    "person": "成人",
+    "brand": "安邦"
   },
-  "carouselSrc": [
-    {
-      "img": "yp41", 
-      "title": "百合康牌 维生素C含片"
-    },
-    {
-      "img": "yp42", 
-      "title": "百合康牌 维生素C含片"
-    },
-    {
-      "img": "yp43", 
-      "title": "百合康牌 维生素C含片"
-    }
-  ],
-  "detailSrc": [
-    {
-      "img": "yp41", 
-      "title": "百合康牌 维生素C含片"
-    },
-    {
-      "img": "yp42", 
-      "title": "百合康牌 维生素C含片"
-    },
-    {
-      "img": "yp43", 
-      "title": "百合康牌 维生素C含片"
-    }
-  ]
+  "carouselSrc": [1,2,3],
+  "detailSrc": [1,2,3,4,5]
 }

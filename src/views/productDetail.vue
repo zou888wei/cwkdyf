@@ -71,7 +71,7 @@
                   </el-row>
                 </el-form>
                 <el-divider />
-                <div class="w-full">
+                <div class="w-full bg-white">
                   <a v-for="(item, index) in options.detailSrc" :key="index">
                     <img :src="item.img" :alt="item.title">
                   </a>
@@ -100,11 +100,13 @@ export default {
       yp12: require('./img/yp1-2.jpg'),
       yp13: require('./img/yp1-3.jpg'),
       yp14: require('./img/yp1-4.jpg'),
+      yp15: require('./img/yp1-5.jpg'),
       yp21: require('./img/yp2-1.jpg'),
-      yp22: require('./img/yp2-2.png'),
+      yp22: require('./img/yp2-2.jpg'),
       yp23: require('./img/yp2-3.jpg'),
       yp24: require('./img/yp2-4.jpg'),
       yp25: require('./img/yp2-5.jpg'),
+      yp26: require('./img/yp2-6.jpg'),
       yp31: require('./img/yp3-1.jpg'),
       yp32: require('./img/yp3-2.jpg'),
       yp33: require('./img/yp3-3.jpg'),
@@ -114,11 +116,12 @@ export default {
       yp41: require('./img/yp4-1.jpg'),
       yp42: require('./img/yp4-2.jpg'),
       yp43: require('./img/yp4-3.jpg'),
+      yp44: require('./img/yp4-4.jpg'),
+      yp45: require('./img/yp4-5.jpg'),
       yp51: require('./img/yp5-1.jpg'),
       yp52: require('./img/yp5-2.jpg'),
       yp53: require('./img/yp5-3.jpg'),
-      yp54: require('./img/yp5-4.jpg'),
-      yp55: require('./img/yp5-5.jpg')
+      yp54: require('./img/yp5-4.jpg')
     }
   },
   created(){
@@ -131,7 +134,7 @@ export default {
         if(i == "carouselSrc" || i == "detailSrc"){
           this.options[i] = []
           str[i].forEach(v => {
-            this.options[i].push({img: this[v.img], title: v.title})
+            this.options[i].push({img: this['yp'+ this.$router.currentRoute.params.id + '' + v], title: str.form.name})
           })
         }else{
           this.options[i] = str[i]
