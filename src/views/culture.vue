@@ -34,8 +34,9 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-        <div class="w-60">
-          <img src="./img/hb.jpg" alt="">
+        <div class="w-60 flex flex-col">
+          <div><img src="./img/hb.jpg" alt=""></div>
+          <div class="text-gray-300" @click="$router.push('/drugMatching')">药品匹配</div>
         </div>
       </div>
     </div>
