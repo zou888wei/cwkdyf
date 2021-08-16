@@ -1,5 +1,5 @@
 <template>
-<div class="p-4">
+<div class="p-4" v-loading="loading">
   <div>
     <el-collapse v-model="active">
       <el-collapse-item :name="1">
@@ -14,10 +14,10 @@
             <div>匹配的药品</div>
             <div><input type="file" @change="res => this.handleInfo(res.target, 'pipei_yp')"></div>
           </div> -->
-          <div class="w-1/4">
+          <!-- <div class="w-1/4">
             <div class="text-lg">医保药品</div>
             <div><input type="file" @change="res => this.handleInfo(res.target, 'yibao_yp')"></div>
-          </div>
+          </div> -->
           <div class="w-1/4">
             <div class="text-lg">全部商品</div>
             <div><input type="file" @change="res => this.handleInfo(res.target, 'quanbu_yp')"></div>
@@ -49,7 +49,7 @@
           <div class="w-2/6 flex flex-row">
             <div class="text-lg mr-2">药品类别</div>
             <div>
-              <el-select class="w-96" v-model="query.type" multiple placeholder="请选择商品类别" clearable size="small" @change="handlType">
+              <el-select class="w-96" v-model="query.type" multiple placeholder="请选择商品类别" size="small" @change="handlType">
                 <el-option
                   v-for="item in typeList"
                   :key="item.value"
@@ -68,8 +68,29 @@
       </el-collapse-item>
     </el-collapse>    
   </div>
-  <div>
-    
+  <div v-if="leftTableData.length">
+    <el-table
+      :data="leftTableData"
+      border
+      stripe
+      :key="'left' + query.pihao"
+      style="width: 100%">
+      <template v-for="(item, index) in leftTableData">
+        <el-table-column v-bind="item" :key="'left' + index"></el-table-column>
+      </template>
+    </el-table>
+  </div>
+  <div v-if="rightTableData.length">
+    <el-table
+      :data="rightTableData"
+      border
+      stripe
+      :key="'right' + query.pihao"
+      style="width: 100%">
+      <template v-for="(item, index) in rightTableData">
+        <el-table-column v-bind="item" :key="'right' + index"></el-table-column>
+      </template>
+    </el-table>
   </div>
 </div>
 </template>
@@ -78,6 +99,7 @@
 export default {
   data(){
     return {
+      loading: false,
       active: [1,2],
       query: {
         pihao: "",
@@ -99,8 +121,112 @@ export default {
       zhongchengyao_yp: [],
       baojianpin_yp: [],
       leftTableData: [],
-      rightTableData: []
+      rightTableData: [],
+      leftHeaders: [
+        {
+          label: "总序号",
+          align: "center",
+          prop: "xh"
+        },
+        {
+          label: "商品分类",
+          align: "center",
+          prop: "spfl"
+        },
+        {
+          label: "分序号",
+          align: "center",
+          prop: "fxh"
+        },
+        {
+          label: "通用名称",
+          align: "center",
+          prop: "tymc"
+        },
+        {
+          label: "商品编号",
+          align: "center",
+          prop: "spbm"
+        },
+        {
+          label: "规格/型号",
+          align: "center",
+          prop: "gg"
+        },
+        {
+          label: "基本单位",
+          align: "center",
+          prop: "jbdw"
+        },
+        {
+          label: "基本单位条形码",
+          align: "center",
+          prop: "txm"
+        },
+        {
+          label: "商品名称",
+          align: "center",
+          prop: "spmc"
+        },
+        {
+          label: "批准文号",
+          align: "center",
+          prop: "pzwh"
+        },
+        {
+          label: "生产厂家",
+          align: "center",
+          prop: "sccj"
+        }
+      ],
+      rightHeaders: [
+        {
+          label: "序号",
+          align: "center",
+          prop: "xh"
+        },
+        {
+          label: "注册名称",
+          align: "center",
+          prop: "zcmc"
+        },
+        {
+          label: "注册规格",
+          align: "center",
+          prop: "zcgg"
+        },
+        {
+          label: "实际规格",
+          align: "center",
+          prop: "sjgg"
+        },
+        {
+          label: "最小包装数量",
+          align: "center",
+          prop: "bzsl"
+        },
+        {
+          label: "最小制剂单位",
+          align: "center",
+          prop: "zjdw"
+        },
+        {
+          label: "药品企业",
+          align: "center",
+          prop: "ypqy"
+        },
+        {
+          label: "批准文号",
+          align: "center",
+          prop: "pzwh"
+        }
+      ]
     }
+  },
+  mounted(){
+    this.loading = true
+    this.yibao_yp = require("@/plugins/json/ybyp.json")
+    this.loading = false
   },
   methods: {
     handleInfo(res, name){
@@ -125,26 +251,49 @@ export default {
         this.$message.error("查询条件不得为空！")
         return false
       }
-      if(!this.yibao_yp.length || !this.quanbu_yp.length){
-        this.$message.error("请导入默认医保药品和全部商品的json文件！")
+      if(!this.quanbu_yp.length){
+        this.$message.error("请导入默认全部商品的json文件！")
         return false
       }
+      this.loading = true
       let leftList = []
       let rightList = []
-      rightList = this.yibao_yp.map(res => {
-        return res[7].includes(this.query.name)
+      rightList = this.yibao_yp.data.map(res => {
+        return res.pzwh.includes(this.query.name)
       })
+      this.rightTableData = Object.assign([], rightList)
+      let cList = []
       this.query.type.forEach(v => {
         if(this[v].length){
           this.$message.error("请导入相应药品类别的json文件！")
+          this.loading = false
           return false
         }
         let str = []
-        str = this[v].map(res => {
-          return res[9].includes(this.query.name)
-        })
-        leftList.concat(str)
+        if(v == 'quanbu_yp'){
+          str = this[v].map(res => {
+            return res.pzwh.includes(this.query.name)
+          })
+          leftList.concat(str)
+        }else{
+          str = this[v].map(res => {
+            return res.pzwh.includes(this.query.name)
+          })
+          cList.concat(str)
+        }
       })
+      if(this.query.type.length == 2){
+        leftList.forEach(v => {
+          cList.forEach(vv => {
+            if(v.spbm === vv.spbm){
+              v.fxh = vv.xh
+              return false
+            }
+          })
+        })
+      }
+      this.leftTableData = Object.assign([], leftList)
+      this.loading = false
     },
     handlType(){
       if(this.query.type.length > 2){
@@ -155,6 +304,11 @@ export default {
       if(!this.query.type.includes("quanbu_yp")){
         this.$message.error("药品类别必须包含全部商品！")
         this.query.type = ["quanbu_yp", "zhongchengyao_yp"]
+        return false
+      }
+      if(this.query.type.length == 0){
+        this.$message.error("全部商品不可删除！")
+        this.query.type = ["quanbu_yp"]
         return false
       }
     }
