@@ -102,7 +102,7 @@ export default {
       loading: false,
       active: [1,2],
       query: {
-        pihao: "",
+        pihao: "国药准字H20065126",
         type: ["quanbu_yp", "zhongchengyao_yp"]
       },
       typeList: [{
@@ -116,7 +116,22 @@ export default {
         value: "baojianpin_yp"
       }],
       // pipei_yp: [],
-      yibao_yp: [],
+      yibao_yp1: [],
+      yibao_yp2: [],
+      yibao_yp3: [],
+      yibao_yp4: [],
+      yibao_yp5: [],
+      yibao_yp6: [],
+      yibao_yp7: [],
+      yibao_yp8: [],
+      yibao_yp9: [],
+      yibao_yp10: [],
+      yibao_yp11: [],
+      yibao_yp12: [],
+      yibao_yp13: [],
+      yibao_yp14: [],
+      yibao_yp15: [],
+      yibao_yp16: [],
       quanbu_yp: [],
       zhongchengyao_yp: [],
       baojianpin_yp: [],
@@ -220,13 +235,15 @@ export default {
           align: "center",
           prop: "pzwh"
         }
-      ]
+      ],
+      leftHeight: 0,
+      rightHeight: 0,
     }
   },
-  mounted(){
-    this.loading = true
-    this.yibao_yp = require("@/plugins/json/ybyp.json")
-    this.loading = false
+  created(){
+    for(let i = 0; i < 16; i++){
+      this['yibao_yp' + (i+1)] = require("@/plugins/json/ybyp" + (i+1) + ".json")
+    }
   },
   methods: {
     handleInfo(res, name){
@@ -258,13 +275,20 @@ export default {
       this.loading = true
       let leftList = []
       let rightList = []
-      rightList = this.yibao_yp.data.map(res => {
-        return res.pzwh.includes(this.query.name)
-      })
+      for(let i = 0; i < 16; i++){
+        let str = []
+        str = this['yibao_yp' + (i+1)].data.map(res => {
+          if(res.pzwh.includes(this.query.pihao)){
+            return res
+          }
+        })
+        console.log(str)
+        rightList.concat(str)
+      }
       this.rightTableData = Object.assign([], rightList)
       let cList = []
       this.query.type.forEach(v => {
-        if(this[v].length){
+        if(!this[v].length){
           this.$message.error("请导入相应药品类别的json文件！")
           this.loading = false
           return false
@@ -272,12 +296,17 @@ export default {
         let str = []
         if(v == 'quanbu_yp'){
           str = this[v].map(res => {
-            return res.pzwh.includes(this.query.name)
+            if(res.pzwh.includes(this.query.pihao)){
+              return res
+            }
           })
+          console.log(str)
           leftList.concat(str)
         }else{
           str = this[v].map(res => {
-            return res.pzwh.includes(this.query.name)
+            if(res.pzwh.includes(this.query.pihao)){
+              return res
+            }
           })
           cList.concat(str)
         }
@@ -293,6 +322,9 @@ export default {
         })
       }
       this.leftTableData = Object.assign([], leftList)
+      this.leftHeight = 30 * this.leftTableData.length
+      this.rightHeight = 30 * this.rightTableData.length
+      console.log(this.leftTableData, this.rightTableData)
       this.loading = false
     },
     handlType(){
