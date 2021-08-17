@@ -68,26 +68,28 @@
       </el-collapse-item>
     </el-collapse>    
   </div>
-  <div v-if="leftTableData.length">
+  <div v-if="leftTableData.length" class="mt-5">
+    <div class="text-xl font-bold">智慧脸药品列表</div>
     <el-table
+      class="zhl-table-style"
       :data="leftTableData"
       border
-      stripe
       :key="'left' + query.pihao"
       style="width: 100%">
-      <template v-for="(item, index) in leftTableData">
+      <template v-for="(item, index) in leftHeaders">
         <el-table-column v-bind="item" :key="'left' + index"></el-table-column>
       </template>
     </el-table>
   </div>
-  <div v-if="rightTableData.length">
+  <div v-if="rightTableData.length" class="mt-5">
+    <div class="text-xl font-bold">医保药品列表</div>
     <el-table
       :data="rightTableData"
       border
       stripe
       :key="'right' + query.pihao"
       style="width: 100%">
-      <template v-for="(item, index) in rightTableData">
+      <template v-for="(item, index) in rightHeaders">
         <el-table-column v-bind="item" :key="'right' + index"></el-table-column>
       </template>
     </el-table>
@@ -102,7 +104,7 @@ export default {
       loading: false,
       active: [1,2],
       query: {
-        pihao: "国药准字H20065126",
+        pihao: "",
         type: ["quanbu_yp", "zhongchengyao_yp"]
       },
       typeList: [{
@@ -196,6 +198,14 @@ export default {
       ],
       rightHeaders: [
         {
+          label: "医保文档行号",
+          align: "center",
+          prop: "xh",
+          formatter: row => {
+            return "A" + (Number(row.xh) + 2)
+          }
+        },
+        {
           label: "序号",
           align: "center",
           prop: "xh"
@@ -277,38 +287,31 @@ export default {
       let rightList = []
       for(let i = 0; i < 16; i++){
         let str = []
-        str = this['yibao_yp' + (i+1)].data.map(res => {
-          if(res.pzwh.includes(this.query.pihao)){
-            return res
-          }
+        str = this['yibao_yp' + (i+1)].data.filter(res => {
+          return res.pzwh.includes(this.query.pihao)
         })
-        console.log(str)
-        rightList.concat(str)
+        rightList = [...rightList, ...str]
       }
       this.rightTableData = Object.assign([], rightList)
       let cList = []
       this.query.type.forEach(v => {
-        if(!this[v].length){
-          this.$message.error("请导入相应药品类别的json文件！")
-          this.loading = false
-          return false
-        }
+        // console.log(v, this[v].length)
+        // if(!this[v].length){
+        //   this.$message.error("请导入相应药品类别的json文件！")
+        //   this.loading = false
+        //   return false
+        // }
         let str = []
         if(v == 'quanbu_yp'){
-          str = this[v].map(res => {
-            if(res.pzwh.includes(this.query.pihao)){
-              return res
-            }
+          str = this[v].filter(res => {
+            return res.pzwh.includes(this.query.pihao)
           })
-          console.log(str)
-          leftList.concat(str)
+          leftList = [...leftList, ...str]
         }else{
-          str = this[v].map(res => {
-            if(res.pzwh.includes(this.query.pihao)){
-              return res
-            }
+          str = this[v].filter(res => {
+            return res.pzwh.includes(this.query.pihao)
           })
-          cList.concat(str)
+          cList = [...cList, ...str]
         }
       })
       if(this.query.type.length == 2){
@@ -324,7 +327,6 @@ export default {
       this.leftTableData = Object.assign([], leftList)
       this.leftHeight = 30 * this.leftTableData.length
       this.rightHeight = 30 * this.rightTableData.length
-      console.log(this.leftTableData, this.rightTableData)
       this.loading = false
     },
     handlType(){

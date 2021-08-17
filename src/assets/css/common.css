@@ -29,3 +29,13 @@ img {
 .form-style .mb-0{
   margin-bottom: 0 !important;
 }
+
+.zhl-table-style.el-table{
+  color: #000;
+  font-family: "宋体";
+  font-size: 14px;
+}
+/* @font-face {
+  font-family: "helvetica";
+  src: url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.eot?iefix") format("eot"),url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.woff") format("woff"),url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.ttf") format("truetype"),url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.svg#svgFontName") format("svg");
+} */
