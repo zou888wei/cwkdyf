@@ -98,6 +98,22 @@
 </template>
 
 <script>
+import ybyp1 from "../../static/json/ybyp1.json"
+import ybyp2 from "../../static/json/ybyp2.json"
+import ybyp3 from "../../static/json/ybyp3.json"
+import ybyp4 from "../../static/json/ybyp4.json"
+import ybyp5 from "../../static/json/ybyp5.json"
+import ybyp6 from "../../static/json/ybyp6.json"
+import ybyp7 from "../../static/json/ybyp7.json"
+import ybyp8 from "../../static/json/ybyp8.json"
+import ybyp9 from "../../static/json/ybyp9.json"
+import ybyp10 from "../../static/json/ybyp10.json"
+import ybyp11 from "../../static/json/ybyp11.json"
+import ybyp12 from "../../static/json/ybyp12.json"
+import ybyp13 from "../../static/json/ybyp13.json"
+import ybyp14 from "../../static/json/ybyp14.json"
+import ybyp15 from "../../static/json/ybyp15.json"
+import ybyp16 from "../../static/json/ybyp16.json"
 export default {
   data(){
     return {
@@ -118,22 +134,22 @@ export default {
         value: "baojianpin_yp"
       }],
       // pipei_yp: [],
-      yibao_yp1: [],
-      yibao_yp2: [],
-      yibao_yp3: [],
-      yibao_yp4: [],
-      yibao_yp5: [],
-      yibao_yp6: [],
-      yibao_yp7: [],
-      yibao_yp8: [],
-      yibao_yp9: [],
-      yibao_yp10: [],
-      yibao_yp11: [],
-      yibao_yp12: [],
-      yibao_yp13: [],
-      yibao_yp14: [],
-      yibao_yp15: [],
-      yibao_yp16: [],
+      yibao_yp1: ybyp1,
+      yibao_yp2: ybyp2,
+      yibao_yp3: ybyp3,
+      yibao_yp4: ybyp4,
+      yibao_yp5: ybyp5,
+      yibao_yp6: ybyp6,
+      yibao_yp7: ybyp7,
+      yibao_yp8: ybyp8,
+      yibao_yp9: ybyp9,
+      yibao_yp10: ybyp10,
+      yibao_yp11: ybyp11,
+      yibao_yp12: ybyp12,
+      yibao_yp13: ybyp13,
+      yibao_yp14: ybyp14,
+      yibao_yp15: ybyp15,
+      yibao_yp16: ybyp16,
       quanbu_yp: [],
       zhongchengyao_yp: [],
       baojianpin_yp: [],
@@ -250,11 +266,6 @@ export default {
       rightHeight: 0,
     }
   },
-  created(){
-    for(let i = 0; i < 16; i++){
-      this['yibao_yp' + (i+1)] = require("@/plugins/json/ybyp" + (i+1) + ".json")
-    }
-  },
   methods: {
     handleInfo(res, name){
       let file = res.files[0]
@@ -287,7 +298,7 @@ export default {
       let rightList = []
       for(let i = 0; i < 16; i++){
         let str = []
-        str = this['yibao_yp' + (i+1)].data.filter(res => {
+        str = this['yibao_yp' + (i+1)].filter(res => {
           return res.pzwh.includes(this.query.pihao)
         })
         rightList = [...rightList, ...str]
