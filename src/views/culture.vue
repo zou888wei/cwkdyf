@@ -36,7 +36,7 @@
         </div>
         <div class="w-60 flex flex-col">
           <div><img src="./img/hb.jpg" alt=""></div>
-          <div class="text-gray-300" @click="$router.push('/drugMatching')">药品匹配</div>
+          <div class="text-gray-300" @click="handleGoRoute">药品匹配</div>
         </div>
       </div>
     </div>
@@ -48,6 +48,12 @@ export default {
   data(){
     return {
       activeName: 'org'
+    }
+  },
+  methods:{
+    handleGoRoute(){
+      this.$message.warning("正在进入，请稍等...")
+      this.$router.push('/drugMatching')
     }
   }
 }
