@@ -291,7 +291,7 @@ export default {
       this.index = 0
     }
     this.$nextTick(() => {
-      this.asyncPrint(this.init(), 2000)
+      this.asyncPrint(this.init(), 1500)
     })
   },
   methods: {
@@ -305,7 +305,7 @@ export default {
     },
     async init(){
       this.loading = true
-      this.timer = setInterval(await this.handleTime, 2000)
+      this.timer = setInterval(await this.handleTime, 500)
     },
     handleTime(){
       this.index++

@@ -128,12 +128,8 @@ if (config.build.productionGzip) {
                 config.build.productionGzipExtensions.join('|') +
                 ')$'
             ),
-            threshold: 10240,
-            minRatio: 0.5
-        }),
-        new webpack.optimize.LimitChunkCountPlugin({
-            maxChunks: 5, //最大文件数
-            minChunkSize: 100
+            threshold: 8000,
+            minRatio: 0.8
         })
     )
 }
