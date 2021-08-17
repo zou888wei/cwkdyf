@@ -1,5 +1,6 @@
 <template>
-<div class="p-4" v-loading="loading">
+<div class="p-4" v-loading="loading" element-loading-text="正在加载医保数据，请稍等..."
+    element-loading-spinner="el-icon-loading"> 
   <div>
     <el-collapse v-model="active">
       <el-collapse-item :name="1">
@@ -45,7 +46,7 @@
             <span class="font-bold">默认查询条件</span>
           </div>
         </template>
-        <div class="flex flex-row pb-2">
+        <div class="flex flex-row py-2">
           <div class="w-2/6 flex flex-row">
             <div class="text-lg mr-2">药品类别</div>
             <div>
@@ -98,22 +99,22 @@
 </template>
 
 <script>
-import ybyp1 from "../../static/json/ybyp1.json"
-import ybyp2 from "../../static/json/ybyp2.json"
-import ybyp3 from "../../static/json/ybyp3.json"
-import ybyp4 from "../../static/json/ybyp4.json"
-import ybyp5 from "../../static/json/ybyp5.json"
-import ybyp6 from "../../static/json/ybyp6.json"
-import ybyp7 from "../../static/json/ybyp7.json"
-import ybyp8 from "../../static/json/ybyp8.json"
-import ybyp9 from "../../static/json/ybyp9.json"
-import ybyp10 from "../../static/json/ybyp10.json"
-import ybyp11 from "../../static/json/ybyp11.json"
-import ybyp12 from "../../static/json/ybyp12.json"
-import ybyp13 from "../../static/json/ybyp13.json"
-import ybyp14 from "../../static/json/ybyp14.json"
-import ybyp15 from "../../static/json/ybyp15.json"
-import ybyp16 from "../../static/json/ybyp16.json"
+// import ybyp1 from "../../static/json/ybyp1.json"
+// import ybyp2 from "../../static/json/ybyp2.json"
+// import ybyp3 from "../../static/json/ybyp3.json"
+// import ybyp4 from "../../static/json/ybyp4.json"
+// import ybyp5 from "../../static/json/ybyp5.json"
+// import ybyp6 from "../../static/json/ybyp6.json"
+// import ybyp7 from "../../static/json/ybyp7.json"
+// import ybyp8 from "../../static/json/ybyp8.json"
+// import ybyp9 from "../../static/json/ybyp9.json"
+// import ybyp10 from "../../static/json/ybyp10.json"
+// import ybyp11 from "../../static/json/ybyp11.json"
+// import ybyp12 from "../../static/json/ybyp12.json"
+// import ybyp13 from "../../static/json/ybyp13.json"
+// import ybyp14 from "../../static/json/ybyp14.json"
+// import ybyp15 from "../../static/json/ybyp15.json"
+// import ybyp16 from "../../static/json/ybyp16.json"
 export default {
   data(){
     return {
@@ -134,22 +135,38 @@ export default {
         value: "baojianpin_yp"
       }],
       // pipei_yp: [],
-      yibao_yp1: ybyp1,
-      yibao_yp2: ybyp2,
-      yibao_yp3: ybyp3,
-      yibao_yp4: ybyp4,
-      yibao_yp5: ybyp5,
-      yibao_yp6: ybyp6,
-      yibao_yp7: ybyp7,
-      yibao_yp8: ybyp8,
-      yibao_yp9: ybyp9,
-      yibao_yp10: ybyp10,
-      yibao_yp11: ybyp11,
-      yibao_yp12: ybyp12,
-      yibao_yp13: ybyp13,
-      yibao_yp14: ybyp14,
-      yibao_yp15: ybyp15,
-      yibao_yp16: ybyp16,
+      // yibao_yp1: ybyp1,
+      // yibao_yp2: ybyp2,
+      // yibao_yp3: ybyp3,
+      // yibao_yp4: ybyp4,
+      // yibao_yp5: ybyp5,
+      // yibao_yp6: ybyp6,
+      // yibao_yp7: ybyp7,
+      // yibao_yp8: ybyp8,
+      // yibao_yp9: ybyp9,
+      // yibao_yp10: ybyp10,
+      // yibao_yp11: ybyp11,
+      // yibao_yp12: ybyp12,
+      // yibao_yp13: ybyp13,
+      // yibao_yp14: ybyp14,
+      // yibao_yp15: ybyp15,
+      // yibao_yp16: ybyp16,
+      yibao_yp1: [],
+      yibao_yp2: [],
+      yibao_yp3: [],
+      yibao_yp4: [],
+      yibao_yp5: [],
+      yibao_yp6: [],
+      yibao_yp7: [],
+      yibao_yp8: [],
+      yibao_yp9: [],
+      yibao_yp10: [],
+      yibao_yp11: [],
+      yibao_yp12: [],
+      yibao_yp13: [],
+      yibao_yp14: [],
+      yibao_yp15: [],
+      yibao_yp16: [],
       quanbu_yp: [],
       zhongchengyao_yp: [],
       baojianpin_yp: [],
@@ -264,9 +281,32 @@ export default {
       ],
       leftHeight: 0,
       rightHeight: 0,
+      timer: "",
+      index: 0
     }
   },
+  mounted(){
+    this.loading = true
+    this.$nextTick(() => {
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.index = 0
+      }
+      this.timer = setInterval(this.handleTime, 5000)
+    })
+  },
   methods: {
+    handleTime(){
+      this.index++
+      if(this.index > 16){
+        clearInterval(this.timer)
+        this.index = 0
+        this.loading = false
+        return false
+      }
+      this['yibao_yp' + this.index] = require("../../static/json/ybyp" + this.index + ".json")
+      console.log(this['yibao_yp' + this.index])
+    },
     handleInfo(res, name){
       let file = res.files[0]
       const FileExt = file.name.replace(/.+\./, "");
@@ -356,6 +396,12 @@ export default {
         this.query.type = ["quanbu_yp"]
         return false
       }
+    }
+  },
+  beforeDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.index = 0
     }
   }
 }

@@ -71,8 +71,9 @@
             </el-collapse-item>
           </el-collapse>
         </div>
-        <div class="w-60">
-          <img src="./img/hb.jpg" alt="">
+        <div class="w-60 flex flex-col">
+          <div><img src="./img/hb.jpg" alt=""></div>
+          <div class="text-gray-300" @click="handleGoRoute">药品匹配</div>
         </div>
       </div>
     </div>
@@ -85,6 +86,12 @@
       return {
         activeNames: ['1', '2', '3', '4']
       };
+    },
+    methods:{
+      handleGoRoute(){
+        this.$message.warning("正在进入，请稍等...")
+        this.$router.push('/drugMatching')
+      }
     }
   }
 </script>

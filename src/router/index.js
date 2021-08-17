@@ -2,26 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-const HomePage = () =>
-    import ('../views/HomePage')
-const home = () =>
-    import ('../views/home')
-const about = () =>
-    import ('../views/about')
-const product = () =>
-    import ('../views/product')
-const productDetail = () =>
-    import ('../views/productDetail')
-const culture = () =>
-    import ('../views/culture')
-const news = () =>
-    import ('../views/news')
-const link = () =>
-    import ('../views/link')
-const drugMatching = () =>
-    import ('../views/drugMatching')
+const HomePage = resolve => require(['../views/HomePage'], resolve)
+const home = resolve => require(['../views/home'], resolve)
+const about = resolve => require(['../views/about'], resolve)
+const product = resolve => require(['../views/product'], resolve)
+const productDetail = resolve => require(['../views/productDetail'], resolve)
+const culture = resolve => require(['../views/culture'], resolve)
+const news = () => import(/* webpackChunkName: "news" */ "@/views/news")
+const link = resolve => require(['../views/link'], resolve)
+const drugMatching = () => import(/* webpackChunkName: "yaopin" */ "@/views/drugMatching")
 
-
+    
 const router = new VueRouter({
     mode: 'history',
     base: __dirname,
@@ -85,5 +76,14 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+
+router.onError((error) => {
+    const pattern = /Loading chunk (\d)+ failed/g;
+    const isChunkLoadFailed = error.message.match(pattern);
+    const targetPath = router.history.pending.fullPath;
+    if (isChunkLoadFailed) {
+      router.replace(targetPath);
+    }
+  });
 
 export default router;
