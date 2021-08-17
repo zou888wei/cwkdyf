@@ -286,16 +286,27 @@ export default {
     }
   },
   mounted(){
-    this.loading = true
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.index = 0
+    }
     this.$nextTick(() => {
-      if (this.timer) {
-        clearInterval(this.timer)
-        this.index = 0
-      }
-      this.timer = setInterval(this.handleTime, 5000)
+      this.asyncPrint(this.init(), 2000)
     })
   },
   methods: {
+    async asyncPrint(value, ms) {
+      await this.timeout(ms)
+    },
+    timeout(ms){
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      })
+    },
+    async init(){
+      this.loading = true
+      this.timer = setInterval(await this.handleTime, 2000)
+    },
     handleTime(){
       this.index++
       if(this.index > 16){
@@ -305,7 +316,6 @@ export default {
         return false
       }
       this['yibao_yp' + this.index] = require("../../static/json/ybyp" + this.index + ".json")
-      console.log(this['yibao_yp' + this.index])
     },
     handleInfo(res, name){
       let file = res.files[0]

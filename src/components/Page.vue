@@ -1,25 +1,20 @@
 <template>
   <div :class="cls">
     <slot></slot>
-    <zui-toast v-if="toastText!==''">
-      {{toastText}}
-    </zui-toast>
     <zui-loading v-if="loadingVisible"/>
   </div>
 </template>
 <script>
   import './less/page.less'
   import '../assets/css/vivify.min.css'
-  import ZuiToast from './Toast'
   import ZuiLoading from './Loading'
   import Util from '../Util'
 
   export default {
     props: {
-      title: '智筹'
+      title: '诚维康大药房'
     },
     components: {
-      ZuiToast,
       ZuiLoading
     },
     computed: {

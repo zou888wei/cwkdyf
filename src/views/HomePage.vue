@@ -39,7 +39,6 @@
         <el-breadcrumb-item v-if="$router.currentRoute.name == 'ProductDetail'">{{$router.currentRoute.params.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <!-- <components :is="containerBox" @onButtonClick="onButtonClick"/> -->
     <router-view />
     <zui-footer/>
   </page>
@@ -50,11 +49,6 @@
   import Page from '../components/Page'
   import ZuiHeader from '../components/Header'
   import ZuiFooter from '../components/Footer'
-  import ZuiButton from '../components/Button'
-  import feature1 from '../assets/img/feature1.png'
-  import feature2 from '../assets/img/feature2.png'
-  import feature3 from '../assets/img/feature3.png'
-  import feature4 from '../assets/img/feature4.png'
   import Util from '../Util'
   import DropList from 'vue-droplist'
 
@@ -62,13 +56,9 @@
   
   export default{
     mixins: [routerLink],
-    components: {Page, Logo, ZuiHeader, ZuiFooter, ZuiButton, DropList},
+    components: {Page, Logo, ZuiHeader, ZuiFooter, DropList},
     data () {
       return {
-        feature1: feature1,
-        feature2: feature2,
-        feature3: feature3,
-        feature4: feature4,
         carouselPerPage: (Util.os.android || Util.os.iPhone) ? 1 : 2,
         configData : {
             position: {  // 设置显示位置，position
