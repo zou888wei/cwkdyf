@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
+    "compression-webpack-plugin": "1.1.12",
     "cross-env": "^7.0.3",
     "element-ui": "^2.15.3",
     "jsonp": "^0.2.1",

@@ -2,14 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-const HomePage = resolve => require(['../views/HomePage'], resolve)
-const home = resolve => require(['../views/home'], resolve)
-const about = resolve => require(['../views/about'], resolve)
-const product = resolve => require(['../views/product'], resolve)
-const productDetail = resolve => require(['../views/productDetail'], resolve)
-const culture = resolve => require(['../views/culture'], resolve)
+const HomePage = () => import(/* webpackChunkName: "HomePage" */ "@/views/HomePage")
+const home = () => import(/* webpackChunkName: "home" */ "@/views/home")
+const about = () => import(/* webpackChunkName: "about" */ "@/views/about")
+const product = () => import(/* webpackChunkName: "product" */ "@/views/product")
+const productDetail = () => import(/* webpackChunkName: "productDetail" */ "@/views/productDetail")
+const culture = () => import(/* webpackChunkName: "culture" */ "@/views/culture")
 const news = () => import(/* webpackChunkName: "news" */ "@/views/news")
-const link = resolve => require(['../views/link'], resolve)
+const link = () => import(/* webpackChunkName: "link" */ "@/views/link")
 const drugMatching = () => import(/* webpackChunkName: "yaopin" */ "@/views/drugMatching")
 
     

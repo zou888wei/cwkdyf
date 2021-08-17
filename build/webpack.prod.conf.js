@@ -105,7 +105,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       name: 'app',
       async: 'vendor-async',
       children: true,
-      minChunks: 3
+      minChunks: Infinity
     }),
 
     // copy custom static assets
