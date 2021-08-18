@@ -11,14 +11,10 @@
           </div>
         </template>
         <div class="flex flex-row pb-2">
-          <!-- <div class="w-1/4">
-            <div>匹配的药品</div>
+          <div class="w-1/4">
+            <div class="text-lg">匹配的药品</div>
             <div><input type="file" @change="res => this.handleInfo(res.target, 'pipei_yp')"></div>
-          </div> -->
-          <!-- <div class="w-1/4">
-            <div class="text-lg">医保药品</div>
-            <div><input type="file" @change="res => this.handleInfo(res.target, 'yibao_yp')"></div>
-          </div> -->
+          </div>
           <div class="w-1/4">
             <div class="text-lg">全部商品</div>
             <div><input type="file" @change="res => this.handleInfo(res.target, 'quanbu_yp')"></div>
@@ -43,28 +39,47 @@
         <template slot="title">
           <div class="text-xl">
             <i class="header-icon el-icon-search"></i>
-            <span class="font-bold">默认查询条件</span>
+            <span class="font-bold">默认查询条件<span class="text-sm">（PS：行号指的是Excel行号，全部商品序号 = 行号 - 2）</span></span>
           </div>
         </template>
-        <div class="flex flex-row py-2">
-          <div class="w-2/6 flex flex-row">
+        <div class="flex flex-row my-2">
+          <div class="flex flex-row mx-2">
             <div class="text-lg mr-2">药品类别</div>
-            <div>
-              <el-select class="w-96" v-model="query.type" multiple placeholder="请选择商品类别" size="small" @change="handlType">
-                <el-option
-                  v-for="item in typeList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
+            <el-select class="w-96" v-model="query.type" multiple placeholder="请选择商品类别" size="small" @change="handlType">
+              <el-option
+                v-for="item in typeList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <div class="flex flex-row mx-2">
+            <div class="text-lg mr-2">行号排序</div>
+            <el-select v-model="query.sort" placeholder="默认正序" size="small" @change="() => this.handlStorage('sort')" style="width:120px">
+              <el-option
+                v-for="item in sortList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+          <div class="flex flex-row mx-2">
+            <div class="text-lg mr-2">匹配药品行号</div>
+            <div class="drug-input-number">
+              <!-- <el-input-number v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" @change="v => this.handlStorage('hanghao', v)" style="width:180px" /> -->
+              <el-input @change="val => this.handlStorage('hanghao', val)" type="number" v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" style="width:180px">
+                <el-button @click="handlQuick('-')"  slot="prepend" icon="el-icon-minus"></el-button>
+                <el-button @click="handlQuick('+')"   slot="append" icon="el-icon-plus"></el-button>
+              </el-input>
             </div>
           </div>
-          <div class="w-1/4 flex flex-row">
+          <div class="flex flex-row mx-2">
             <div class="text-lg mr-2">注册批号</div>
             <div><el-input v-model="query.pihao" placeholder="请输入注册批号" size="small" clearable /></div>
-            <div class="ml-2"><el-button type="primary" size="small" @click="handleSearch">查询</el-button></div>
           </div>
+          <div class="ml-2"><el-button type="primary" size="small" @click="handleSearch">查询</el-button></div>
         </div>
       </el-collapse-item>
     </el-collapse>    
@@ -99,6 +114,7 @@
 </template>
 
 <script>
+import Storage from "good-storage"
 // import ybyp1 from "../../static/json/ybyp1.json"
 // import ybyp2 from "../../static/json/ybyp2.json"
 // import ybyp3 from "../../static/json/ybyp3.json"
@@ -122,6 +138,9 @@ export default {
       active: [1,2],
       query: {
         pihao: "",
+        index: 0,
+        hanghao: 3,
+        sort: 0,
         type: ["quanbu_yp", "zhongchengyao_yp"]
       },
       typeList: [{
@@ -134,7 +153,13 @@ export default {
         label: "保健品",
         value: "baojianpin_yp"
       }],
-      // pipei_yp: [],
+      sortList: [{
+        label: "正序",
+        value: 0
+      },{
+        label: "倒序",
+        value: 1
+      }],
       // yibao_yp1: ybyp1,
       // yibao_yp2: ybyp2,
       // yibao_yp3: ybyp3,
@@ -167,6 +192,7 @@ export default {
       yibao_yp14: [],
       yibao_yp15: [],
       yibao_yp16: [],
+      pipei_yp: [],
       quanbu_yp: [],
       zhongchengyao_yp: [],
       baojianpin_yp: [],
@@ -291,7 +317,7 @@ export default {
       this.index = 0
     }
     this.$nextTick(() => {
-      this.asyncPrint(this.init(), 1500)
+      this.asyncPrint(this.init(), 1000)
     })
   },
   methods: {
@@ -331,8 +357,89 @@ export default {
       reader.onload = function (evt) { //读取完文件之后会回来这里
         let fileString = evt.target.result; // 读取文件内容
         let str = JSON.parse(fileString)
-        that[name] = Object.assign([], str)
+        if(name == "pipei_yp"){
+          let ss = str.filter(v => {
+            return !v.pp || v.pp != "#N/A"
+          })
+          that[name] = Object.assign([], ss)
+          let PPHH = Storage.get("PPHH")
+          // console.log(PPHH)
+          if(PPHH){
+            PPHH = JSON.parse(PPHH)
+            console.log(PPHH)
+            that.query.sort = PPHH.sort
+            that.query.hanghao = PPHH.hanghao
+            that.query.pihao = PPHH.pihao
+            that.query.index = PPHH.index
+          }else{
+            that.handlStorage()
+          }
+        }else {
+          that[name] = Object.assign([], str)
+        }
       }
+    },
+    handlQuick(v){
+      if(!this.pipei_yp.length){
+        this.$message.error("请导入匹配药品的json文件！")
+        return false
+      }
+      if(!this.quanbu_yp.length){
+        this.$message.error("请导入默认全部商品的json文件！")
+        return false
+      }
+      if(v == '+'){
+        if(this.query.index == this.pipei_yp.length - 1){
+          this.$message.error("恭喜你，已经查找完全部匹配药品！")
+          return false
+        }
+        if(!this.query.sort){
+          this.query.index++
+        }else{
+          this.query.index--
+        }
+      }else{
+        if(!this.query.index){
+          this.$message.error("恭喜你，已经查找完全部匹配药品！")
+          return false
+        }
+        if(!this.query.sort){
+          this.query.index--
+        }else{
+          this.query.index++
+        }
+      }
+      this.query.hanghao = Number(this.pipei_yp[this.query.index].xh) + 2
+      this.query.pihao = this.pipei_yp[this.query.index].pp
+      Storage.set("PPHH", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
+      this.handleSearch()
+    },
+    handlStorage(isSort){
+      if(isSort){
+        let str = []
+        str = this.pipei_yp.filter((v, i) => {
+          if(Number(v.xh) + 2 == Number(this.query.hanghao)){
+            this.query.index = i
+          }
+          return Number(v.xh) + 2 == Number(this.query.hanghao)
+        })
+        if(!str.length) {
+          this.$message.error("未找到对应数据，请检查文件是否导入或行号输入错误!")
+          return false
+        }
+        this.query.hanghao = Number(str[0].xh) + 2
+        this.query.pihao = str[0].pp
+      }else{
+        if(this.query.sort){
+          this.query.index = this.pipei_yp.length - 1
+        }else{
+          this.query.index = 0
+        }
+        this.query.hanghao = Number(this.pipei_yp[this.query.index].xh) + 2
+        this.query.pihao = this.pipei_yp[this.query.index].pp
+      }
+      Storage.set("PPHH", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
+      this.handleSearch()
     },
     handleSearch(){
       if(!this.query.pihao || !this.query.type.length){

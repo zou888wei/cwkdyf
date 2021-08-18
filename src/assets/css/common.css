@@ -1,41 +1,59 @@
 /* 全局样式 */
+
 img {
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
+
 .m-0-auto {
-  margin: 0 auto;
+    margin: 0 auto;
 }
+
 .m-0 {
-  margin: 0 !important;
+    margin: 0 !important;
 }
+
 .m-r-5 {
-  margin-right: 5px;
+    margin-right: 5px;
 }
+
 .m-t-5 {
-  margin-top: 5px;
+    margin-top: 5px;
 }
+
 .p-0 {
-  padding: 0 !important;
+    padding: 0 !important;
 }
+
 .w-100pct {
-  width: 100%;
+    width: 100%;
 }
 
 .form-style .el-form-item__label {
-  background: #E5E7EB;
+    background: #E5E7EB;
 }
 
-.form-style .mb-0{
-  margin-bottom: 0 !important;
+.form-style .mb-0 {
+    margin-bottom: 0 !important;
 }
 
-.zhl-table-style.el-table{
-  color: #000;
-  font-family: "宋体";
-  font-size: 14px;
+.zhl-table-style.el-table {
+    color: #000;
+    font-family: "宋体";
+    font-size: 14px;
 }
+
+
 /* @font-face {
   font-family: "helvetica";
   src: url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.eot?iefix") format("eot"),url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.woff") format("woff"),url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.ttf") format("truetype"),url("http://cdn2.yoox.biz/Os/fonts/helveticaneueltstdmdcn.svg#svgFontName") format("svg");
 } */
+
+.drug-input-number /deep/ input::-webkit-outer-spin-button,
+.drug-input-number /deep/ input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+
+.drug-input-number /deep/ input[type='number'] {
+    -moz-appearance: textfield !important;
+}
