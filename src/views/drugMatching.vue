@@ -69,9 +69,9 @@
             <div class="text-lg mr-2">匹配药品行号</div>
             <div class="drug-input-number">
               <!-- <el-input-number v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" @change="v => this.handlStorage('hanghao', v)" style="width:180px" /> -->
-              <el-input @change="val => this.handlStorage('hanghao', val)" type="number" v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" style="width:180px">
+              <el-input @change="val => this.handlStorage('hanghao', val)" type="number" v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" style="width:200px">
                 <el-button @click="handlQuick('-')"  slot="prepend" icon="el-icon-minus"></el-button>
-                <el-button @click="handlQuick('+')"   slot="append" icon="el-icon-plus"></el-button>
+                <el-button @click="handlQuick('+')"  slot="append" icon="el-icon-plus"></el-button>
               </el-input>
             </div>
           </div>
@@ -90,6 +90,7 @@
       class="zhl-table-style"
       :data="leftTableData"
       border
+      @row-click="handlCopyZhl"
       :key="'left' + query.pihao"
       style="width: 100%">
       <template v-for="(item, index) in leftHeaders">
@@ -104,6 +105,7 @@
       border
       stripe
       :key="'right' + query.pihao"
+      @row-click="handlCopyYb"
       style="width: 100%">
       <template v-for="(item, index) in rightHeaders">
         <el-table-column v-bind="item" :key="'right' + index"></el-table-column>
@@ -115,6 +117,7 @@
 
 <script>
 import Storage from "good-storage"
+// import Clipboard from 'clipboard';
 // import ybyp1 from "../../static/json/ybyp1.json"
 // import ybyp2 from "../../static/json/ybyp2.json"
 // import ybyp3 from "../../static/json/ybyp3.json"
@@ -308,7 +311,8 @@ export default {
       leftHeight: 0,
       rightHeight: 0,
       timer: "",
-      index: 0
+      index: 0,
+      copys:""
     }
   },
   mounted(){
@@ -316,8 +320,18 @@ export default {
       clearInterval(this.timer)
       this.index = 0
     }
+    let that = this
     this.$nextTick(() => {
       this.asyncPrint(this.init(), 1000)
+      // 空格与~监听
+      document.onkeydown = function(e){
+        let el = e || event || window.event || arguments.callee.caller.arguments[0]
+        if(el && el.code == 'Space'){
+          that.handlQuick('+')
+        }else if(el && el.code == 'Backquote'){
+          that.handlQuick('-')
+        }
+      }
     })
   },
   methods: {
@@ -345,6 +359,11 @@ export default {
     },
     handleInfo(res, name){
       let file = res.files[0]
+      if(!file){
+        this[name] = []
+        this.$message.warning("已清空该数据，请重新选择对应文件导入！")
+        return false
+      }
       const FileExt = file.name.replace(/.+\./, "");
       const picArr = ["json"]
       if (picArr.indexOf(FileExt) < 0) {
@@ -363,10 +382,8 @@ export default {
           })
           that[name] = Object.assign([], ss)
           let PPHH = Storage.get("PPHH")
-          // console.log(PPHH)
           if(PPHH){
             PPHH = JSON.parse(PPHH)
-            console.log(PPHH)
             that.query.sort = PPHH.sort
             that.query.hanghao = PPHH.hanghao
             that.query.pihao = PPHH.pihao
@@ -379,6 +396,31 @@ export default {
         }
       }
     },
+    handlCopyZhl(row){
+      let list = []
+      list.push(row.xh, row.spfl, row.fxh, row.tymc, row.spbm);
+      let str = list.join("\t")
+      let save = function (e){
+        e.clipboardData.setData('text/plain',str); 
+        e.preventDefault();//阻止默认行为
+      }
+      document.addEventListener('copy',save);
+      document.execCommand("copy");
+      document.removeEventListener('copy',save);
+      this.$message.success("已复制智慧脸数据，请粘贴使用！")
+    },
+    handlCopyYb(row){
+      let str = 'A' + (Number(row.xh) + 2)
+      let save = function (e){
+        e.clipboardData.setData('text/plain',str); 
+        e.preventDefault();//阻止默认行为
+      }
+      document.addEventListener('copy',save);
+      document.execCommand("copy");
+      document.removeEventListener('copy',save);
+      
+      this.$message.success("已复制医保文档序号，请粘贴使用！")
+    },
     handlQuick(v){
       if(!this.pipei_yp.length){
         this.$message.error("请导入匹配药品的json文件！")
@@ -389,24 +431,32 @@ export default {
         return false
       }
       if(v == '+'){
-        if(this.query.index == this.pipei_yp.length - 1){
-          this.$message.error("恭喜你，已经查找完全部匹配药品！")
-          return false
-        }
-        if(!this.query.sort){
-          this.query.index++
-        }else{
+        if(this.query.sort){
+          if(this.query.index <= 0){
+            this.$message.error("数据已经到底了，恭喜你！")
+            return false
+          }
           this.query.index--
+        }else{
+          if(this.query.index >= this.pipei_yp.length - 1){
+            this.$message.error("数据已经到底了，恭喜你！")
+            return false
+          }
+          this.query.index++
         }
       }else{
-        if(!this.query.index){
-          this.$message.error("恭喜你，已经查找完全部匹配药品！")
-          return false
-        }
-        if(!this.query.sort){
-          this.query.index--
-        }else{
+        if(this.query.sort){
+          if(this.query.index >= this.pipei_yp.length - 1){
+            this.$message.error("数据已经到底了，恭喜你！")
+            return false
+          }
           this.query.index++
+        }else{
+          if(this.query.index <= 0){
+            this.$message.error("数据已经到底了，恭喜你！")
+            return false
+          }
+          this.query.index--
         }
       }
       this.query.hanghao = Number(this.pipei_yp[this.query.index].xh) + 2
@@ -416,6 +466,13 @@ export default {
     },
     handlStorage(isSort){
       if(isSort){
+        if(isSort == "sort"){
+          if(this.query.sort){
+            this.query.hanghao = Number(this.pipei_yp[this.pipei_yp.length - 1].xh) + 2
+          }else{
+            this.query.hanghao = Number(this.pipei_yp[0].xh) + 2
+          }
+        }
         let str = []
         str = this.pipei_yp.filter((v, i) => {
           if(Number(v.xh) + 2 == Number(this.query.hanghao)){
