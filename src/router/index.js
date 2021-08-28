@@ -21,7 +21,7 @@ const link = () =>
 const drugMatching = () =>
     import ( /* webpackChunkName: "yaopin" */ "@/views/drugMatching")
 const drugMatching18W = () =>
-    import ( /* webpackChunkName: "yaopin" */ "@/views/drugMatching18W")
+    import ( /* webpackChunkName: "yaopin18" */ "@/views/drugMatching18W")
 
 
 const router = new VueRouter({
