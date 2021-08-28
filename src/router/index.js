@@ -2,17 +2,28 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-const HomePage = () => import(/* webpackChunkName: "HomePage" */ "@/views/HomePage")
-const home = () => import(/* webpackChunkName: "home" */ "@/views/home")
-const about = () => import(/* webpackChunkName: "about" */ "@/views/about")
-const product = () => import(/* webpackChunkName: "product" */ "@/views/product")
-const productDetail = () => import(/* webpackChunkName: "productDetail" */ "@/views/productDetail")
-const culture = () => import(/* webpackChunkName: "culture" */ "@/views/culture")
-const news = () => import(/* webpackChunkName: "news" */ "@/views/news")
-const link = () => import(/* webpackChunkName: "link" */ "@/views/link")
-const drugMatching = () => import(/* webpackChunkName: "yaopin" */ "@/views/drugMatching")
+const HomePage = () =>
+    import ( /* webpackChunkName: "HomePage" */ "@/views/HomePage")
+const home = () =>
+    import ( /* webpackChunkName: "home" */ "@/views/home")
+const about = () =>
+    import ( /* webpackChunkName: "about" */ "@/views/about")
+const product = () =>
+    import ( /* webpackChunkName: "product" */ "@/views/product")
+const productDetail = () =>
+    import ( /* webpackChunkName: "productDetail" */ "@/views/productDetail")
+const culture = () =>
+    import ( /* webpackChunkName: "culture" */ "@/views/culture")
+const news = () =>
+    import ( /* webpackChunkName: "news" */ "@/views/news")
+const link = () =>
+    import ( /* webpackChunkName: "link" */ "@/views/link")
+const drugMatching = () =>
+    import ( /* webpackChunkName: "yaopin" */ "@/views/drugMatching")
+const drugMatching18W = () =>
+    import ( /* webpackChunkName: "yaopin" */ "@/views/drugMatching18W")
 
-    
+
 const router = new VueRouter({
     mode: 'history',
     base: __dirname,
@@ -65,6 +76,11 @@ const router = new VueRouter({
             path: '/drugMatching',
             name: 'DrugMatching',
             component: drugMatching
+        },
+        {
+            path: '/drugMatching18W',
+            name: 'DrugMatching18W',
+            component: drugMatching18W
         }
     ]
 });
@@ -82,8 +98,8 @@ router.onError((error) => {
     const isChunkLoadFailed = error.message.match(pattern);
     const targetPath = router.history.pending.fullPath;
     if (isChunkLoadFailed) {
-      router.replace(targetPath);
+        router.replace(targetPath);
     }
-  });
+});
 
 export default router;

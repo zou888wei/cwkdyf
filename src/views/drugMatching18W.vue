@@ -195,6 +195,8 @@ export default {
       yibao_yp14: [],
       yibao_yp15: [],
       yibao_yp16: [],
+      yibao_yp17: [],
+      yibao_yp18: [],
       pipei_yp: [],
       quanbu_yp: [],
       zhongchengyao_yp: [],
@@ -278,6 +280,11 @@ export default {
           prop: "zcmc"
         },
         {
+          label: "商品名称(品牌)",
+          align: "center",
+          prop: "spmc"
+        },
+        {
           label: "注册规格",
           align: "center",
           prop: "zcgg"
@@ -349,13 +356,13 @@ export default {
     },
     handleTime(){
       this.index++
-      if(this.index > 16){
+      if(this.index > 18){
         clearInterval(this.timer)
         this.index = 0
         this.loading = false
         return false
       }
-      this['yibao_yp' + this.index] = require("../../static/json/ybyp" + this.index + ".json")
+      this['yibao_yp' + this.index] = require("../../static/json18/ybyp" + this.index + ".json")
     },
     handleInfo(res, name){
       let file = res.files[0]
@@ -381,7 +388,7 @@ export default {
             return !v.pp || v.pp != "#N/A"
           })
           that[name] = Object.assign([], ss)
-          let PPHH = Storage.get("PPHH")
+          let PPHH = Storage.get("PPHH18")
           if(PPHH){
             PPHH = JSON.parse(PPHH)
             that.query.sort = PPHH.sort
@@ -461,7 +468,7 @@ export default {
       }
       this.query.hanghao = Number(this.pipei_yp[this.query.index].xh) + 2
       this.query.pihao = this.pipei_yp[this.query.index].pp
-      Storage.set("PPHH", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
+      Storage.set("PPHH18", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
       this.handleSearch()
     },
     handlStorage(isSort){
@@ -495,7 +502,7 @@ export default {
         this.query.hanghao = Number(this.pipei_yp[this.query.index].xh) + 2
         this.query.pihao = this.pipei_yp[this.query.index].pp
       }
-      Storage.set("PPHH", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
+      Storage.set("PPHH18", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
       this.handleSearch()
     },
     handleSearch(){
@@ -510,7 +517,7 @@ export default {
       this.loading = true
       let leftList = []
       let rightList = []
-      for(let i = 0; i < 16; i++){
+      for(let i = 0; i < 18; i++){
         let str = []
         str = this['yibao_yp' + (i+1)].filter(res => {
           return res.pzwh.includes(this.query.pihao)
