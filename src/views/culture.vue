@@ -37,6 +37,7 @@
         <div class="w-60 flex flex-col">
           <div><img src="./img/hb.jpg" alt=""></div>
           <div class="text-gray-300" @click="handleGoRoute">18W药品匹配</div>
+          <div class="text-gray-300" @click="handleGoRoute2">中药饮片</div>
         </div>
       </div>
     </div>
@@ -54,6 +55,10 @@ export default {
     handleGoRoute(){
       this.$message.warning("正在进入18万数据匹配中，请稍等...")
       this.$router.push('/drugMatching18W')
+    },
+    handleGoRoute2(){
+      this.$message.warning("正在进入中药饮片匹配中，请稍等...")
+      this.$router.push('/drugZyyp')
     }
   }
 }
