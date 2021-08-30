@@ -119,12 +119,14 @@ export default {
         {
           label: "通用名称",
           align: "center",
-          prop: "tymc"
+          prop: "tymc",
+          sortable: true
         },
         {
           label: "商品编号",
           align: "center",
-          prop: "spbm"
+          prop: "spbm",
+          sortable: true
         },
         {
           label: "商品名称",
@@ -137,6 +139,24 @@ export default {
           prop: "cd"
         },
         {
+          label: "首次录入时间",
+          align: "center",
+          prop: "time",
+          sortable: true
+        },
+        {
+          label: "最近修改时间",
+          align: "center",
+          prop: "editTime",
+          sortable: true
+        },
+        {
+          label: "分类",
+          align: "center",
+          prop: "pp",
+          sortable: true
+        },
+        {
           label: "规格/型号",
           align: "center",
           prop: "gg"
@@ -146,11 +166,11 @@ export default {
           align: "center",
           prop: "jbdw"
         },
-        {
-          label: "基本单位条形码",
-          align: "center",
-          prop: "txm"
-        },
+        // {
+        //   label: "基本单位条形码",
+        //   align: "center",
+        //   prop: "txm"
+        // },
         {
           label: "批准文号",
           align: "center",
@@ -243,7 +263,7 @@ export default {
         let fileString = evt.target.result; // 读取文件内容
         let str = JSON.parse(fileString)
         that[name] = Object.assign([], str)
-        that.handlStorage()
+        // that.handlStorage()
       }
     },
     handlCopyZhl(row){
@@ -358,10 +378,11 @@ export default {
       leftList = this.quanbu_yp.filter(res => {
         return res.tymc.includes(this.query.ypmc)
       })
-      // if(!leftList.length){
-      //   this.handlQuick(v)
-      //   return false
-      // }
+      if(!leftList.length){
+        this.handlQuick(v)
+        this.loading = false
+        return false
+      }
       this.leftTableData = Object.assign([], leftList)
       this.rightTableData = [this.yibao_zyyp[this.query.index]]
       this.leftHeight = 30 * this.leftTableData.length
