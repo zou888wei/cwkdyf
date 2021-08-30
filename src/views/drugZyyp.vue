@@ -11,45 +11,22 @@
           </div>
         </template>
         <div class="flex flex-row pb-2">
-          <!-- <div class="w-1/4">
-            <div class="text-lg">匹配的药品</div>
-            <div><input type="file" @change="res => this.handleInfo(res.target, 'pipei_yp')"></div>
-          </div> -->
           <div class="w-1/4">
             <div class="text-lg">中药饮片</div>
             <div><input type="file" @change="res => this.handleInfo(res.target, 'quanbu_yp')"></div>
           </div>
-          <!-- <div class="w-1/4">
-            <div class="text-lg">西药</div>
-            <div><input type="file" @change="res => this.handleInfo(res.target, 'baojianpin_yp')"></div>
-          </div>
-          <div class="w-1/4">
-            <div class="text-lg">中成药</div>
-            <div><input type="file" @change="res => this.handleInfo(res.target, 'zhongchengyao_yp')"></div>
-          </div> -->
         </div>
       </el-collapse-item>
       <el-collapse-item :name="2">
         <template slot="title">
           <div class="text-xl">
             <i class="header-icon el-icon-search"></i>
-            <span class="font-bold">默认查询条件<span class="text-sm">（PS：行号指的是Excel行号，全部商品序号 = 行号 - 2）</span></span>
+            <span class="font-bold">默认查询条件<span class="text-sm">（PS：行号指的是医保中药饮片行号，医保中药饮片序号 = 行号 - 2）</span></span>
           </div>
         </template>
         <div class="flex flex-row my-2">
-          <!-- <div class="flex flex-row mx-2">
-            <div class="text-lg mr-2">药品类别</div>
-            <el-select class="w-96" v-model="query.type" multiple placeholder="请选择商品类别" size="small" disabled>
-              <el-option
-                v-for="item in typeList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div> -->
           <div class="flex flex-row mx-2">
-            <div class="text-lg mr-2">行号排序</div>
+            <div class="text-lg mr-2">医保中药饮片行号排序</div>
             <el-select v-model="query.sort" placeholder="默认正序" size="small" @change="() => this.handlStorage('sort')" style="width:120px">
               <el-option
                 v-for="item in sortList"
@@ -60,18 +37,18 @@
             </el-select>
           </div>
           <div class="flex flex-row mx-2">
-            <div class="text-lg mr-2">匹配商品行号</div>
+            <div class="text-lg mr-2">中药饮片行号</div>
             <div class="drug-input-number">
               <!-- <el-input-number v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" @change="v => this.handlStorage('hanghao', v)" style="width:180px" /> -->
-              <el-input @change="val => this.handlStorage('hanghao', val)" type="number" v-model="query.hanghao" placeholder="请输入行号" size="small" :min="3" style="width:200px">
+              <el-input @change="val => this.handlStorage('hanghao', val)" type="number" v-model="query.hanghao" placeholder="请输入中药饮片行号" size="small" :min="3" style="width:200px">
                 <el-button @click="handlQuick('-')"  slot="prepend" icon="el-icon-minus"></el-button>
                 <el-button @click="handlQuick('+')"  slot="append" icon="el-icon-plus"></el-button>
               </el-input>
             </div>
           </div>
           <div class="flex flex-row mx-2">
-            <div class="text-lg mr-2">商品名称</div>
-            <div><el-input v-model="query.pihao" placeholder="请输入商品名称" size="small" clearable /></div>
+            <div class="text-lg mr-2">中药饮片名称</div>
+            <div><el-input v-model="query.ypmc" placeholder="请输入中药饮片名称" size="small" clearable /></div>
           </div>
           <div class="ml-2"><el-button type="primary" size="small" @click="handleSearch">查询</el-button></div>
         </div>
@@ -85,7 +62,7 @@
       :data="leftTableData"
       border
       @row-click="handlCopyZhl"
-      :key="'left' + query.pihao"
+      :key="'left' + query.ypmc"
       style="width: 100%">
       <template v-for="(item, index) in leftHeaders">
         <el-table-column v-bind="item" :key="'left' + index"></el-table-column>
@@ -98,7 +75,7 @@
       :data="rightTableData"
       border
       stripe
-      :key="'right' + query.pihao"
+      :key="'right' + query.ypmc"
       @row-click="handlCopyYb"
       style="width: 100%">
       <template v-for="(item, index) in rightHeaders">
@@ -117,7 +94,7 @@ export default {
       loading: false,
       active: [1,2],
       query: {
-        pihao: "",
+        ypmc: "",
         index: 0,
         hanghao: 3,
         sort: 0
@@ -248,7 +225,7 @@ export default {
           PPHH = JSON.parse(PPHH)
           that.query.sort = PPHH.sort
           that.query.hanghao = PPHH.hanghao
-          that.query.pihao = PPHH.pihao
+          that.query.ypmc = PPHH.ypmc
           that.query.index = PPHH.index
         }else{
           that.handlStorage()
@@ -294,7 +271,7 @@ export default {
           }
           this.query.index--
         }else{
-          if(this.query.index >= this.quanbu_yp.length - 1){
+          if(this.query.index >= this.yibao_zyyp.length - 1){
             this.$message.error("数据已经到底了，恭喜你！")
             return false
           }
@@ -302,7 +279,7 @@ export default {
         }
       }else{
         if(this.query.sort){
-          if(this.query.index >= this.quanbu_yp.length - 1){
+          if(this.query.index >= this.yibao_zyyp.length - 1){
             this.$message.error("数据已经到底了，恭喜你！")
             return false
           }
@@ -315,22 +292,22 @@ export default {
           this.query.index--
         }
       }
-      this.query.hanghao = Number(this.quanbu_yp[this.query.index].xh) + 2
-      this.query.pihao = this.quanbu_yp[this.query.index].tymc
-      Storage.set("PPHH", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
+      this.query.hanghao = Number(this.yibao_zyyp[this.query.index].xh) + 2
+      this.query.ypmc = this.yibao_zyyp[this.query.index].tymc
+      Storage.set("ZYYP", JSON.stringify({hanghao: this.query.hanghao, ypmc: this.query.ypmc, sort: this.query.sort, index: this.query.index}))
       this.handleSearch()
     },
     handlStorage(isSort){
       if(isSort){
         if(isSort == "sort"){
           if(this.query.sort){
-            this.query.hanghao = Number(this.quanbu_yp[this.quanbu_yp.length - 1].xh) + 2
+            this.query.hanghao = Number(this.yibao_zyyp[this.yibao_zyyp.length - 1].xh) + 2
           }else{
-            this.query.hanghao = Number(this.quanbu_yp[0].xh) + 2
+            this.query.hanghao = Number(this.yibao_zyyp[0].xh) + 2
           }
         }
         let str = []
-        str = this.quanbu_yp.filter((v, i) => {
+        str = this.yibao_zyyp.filter((v, i) => {
           if(Number(v.xh) + 2 == Number(this.query.hanghao)){
             this.query.index = i
           }
@@ -341,21 +318,21 @@ export default {
           return false
         }
         this.query.hanghao = Number(str[0].xh) + 2
-        this.query.pihao = str[0].pp
+        this.query.ypmc = str[0].pp
       }else{
         if(this.query.sort){
-          this.query.index = this.pipei_yp.length - 1
+          this.query.index = this.yibao_zyyp.length - 1
         }else{
           this.query.index = 0
         }
-        this.query.hanghao = Number(this.pipei_yp[this.query.index].xh) + 2
-        this.query.pihao = this.pipei_yp[this.query.index].pp
+        this.query.hanghao = Number(this.yibao_zyyp[this.query.index].xh) + 2
+        this.query.ypmc = this.yibao_zyyp[this.query.index].pp
       }
-      Storage.set("PPHH", JSON.stringify({hanghao: this.query.hanghao, pihao: this.query.pihao, sort: this.query.sort, index: this.query.index}))
+      Storage.set("ZYYP", JSON.stringify({hanghao: this.query.hanghao, ypmc: this.query.ypmc, sort: this.query.sort, index: this.query.index}))
       this.handleSearch()
     },
     handleSearch(){
-      if(!this.query.pihao){
+      if(!this.query.ypmc){
         this.$message.error("查询条件不得为空！")
         return false
       }
@@ -365,59 +342,19 @@ export default {
       }
       this.loading = true
       let leftList = []
-      let rightList = []
-      rightList = this.yibao_zyyp.filter(res => {
-        return this.query.pihao.includes(res.pzwh)
+      leftList = this.quanbu_yp.filter(res => {
+        return res.pzwh.includes(this.query.ypmc)
       })
-      this.rightTableData = Object.assign([], rightList)
-      let cList = []
-      let quanbu_yp_str = []
-      quanbu_yp_str = this.quanbu_yp.filter(res => {
-        return ph.toUpperCase().includes(this.query.pihao)
-      })
-      leftList = [...leftList, ...quanbu_yp_str]
-      leftList.forEach(v => {
-        let str = []
-        let spfl = "zhongchengyao_yp"
-        if(v.spfl == '西药'){
-          spfl = "baojianpin_yp"
-        }
-        str = this[spfl].filter(res => {
-          let ph = new String(res.pzwh)
-          return ph.toUpperCase().includes(this.query.pihao)
-        })
-        cList = [...cList, ...str]
-      })
-      leftList.forEach(v => {
-        cList.forEach(vv => {
-          if(v.spbm === vv.spbm){
-            v.fxh = vv.xh
-            return false
-          }
-        })
-      })
+      if(!leftList.length){
+        this.handlQuick('+')
+        return false
+      }
       this.leftTableData = Object.assign([], leftList)
+      this.rightTableData = Object.assign([], this.yibao_zyyp[this.query.hanghao - 2])
       this.leftHeight = 30 * this.leftTableData.length
       this.rightHeight = 30 * this.rightTableData.length
       this.loading = false
-    },
-    // handlType(){
-    //   if(this.query.type.length > 2){
-    //     this.$message.error("药品类别最多只能选2个！")
-    //     this.query.type = ["quanbu_yp", "zhongchengyao_yp"]
-    //     return false
-    //   }
-    //   if(!this.query.type.includes("quanbu_yp")){
-    //     this.$message.error("药品类别必须包含全部商品！")
-    //     this.query.type = ["quanbu_yp", "zhongchengyao_yp"]
-    //     return false
-    //   }
-    //   if(this.query.type.length == 0){
-    //     this.$message.error("全部商品不可删除！")
-    //     this.query.type = ["quanbu_yp"]
-    //     return false
-    //   }
-    // }
+    }
   },
   beforeDestroy() {
     if (this.timer) {
