@@ -1,6 +1,6 @@
 <template>
 <div class="p-4" v-loading="loading" element-loading-text="正在加载医保数据，请稍等..."
-    element-loading-spinner="el-icon-loading"> 
+    element-loading-spinner="el-icon-loading" @touchmove.prevent> 
   <div>
     <el-collapse v-model="active">
       <el-collapse-item :name="1">
@@ -55,7 +55,21 @@
       </el-collapse-item>
     </el-collapse>    
   </div>
-  <div v-if="leftTableData.length" class="mt-5">
+  <div class="mt-5">
+  <div class="text-xl font-bold">医保中药饮片列表</div>
+    <el-table
+      :data="rightTableData"
+      border
+      stripe
+      :key="'right' + query.ypmc"
+      @row-click="handlCopyYb"
+      style="width: 100%">
+      <template v-for="(item, index) in rightHeaders">
+        <el-table-column v-bind="item" :key="'right' + index"></el-table-column>
+      </template>
+    </el-table>
+  </div>
+  <div class="mt-5">
     <div class="text-xl font-bold">包含中药饮片名字列表</div>
     <el-table
       class="zhl-table-style"
@@ -66,20 +80,6 @@
       style="width: 100%">
       <template v-for="(item, index) in leftHeaders">
         <el-table-column v-bind="item" :key="'left' + index"></el-table-column>
-      </template>
-    </el-table>
-  </div>
-  <div v-if="rightTableData.length" class="mt-5">
-    <div class="text-xl font-bold">医保中药饮片列表</div>
-    <el-table
-      :data="rightTableData"
-      border
-      stripe
-      :key="'right' + query.ypmc"
-      @row-click="handlCopyYb"
-      style="width: 100%">
-      <template v-for="(item, index) in rightHeaders">
-        <el-table-column v-bind="item" :key="'right' + index"></el-table-column>
       </template>
     </el-table>
   </div>
@@ -196,10 +196,32 @@ export default {
   },
   created(){
     this.init()
+    let that = this
+    this.$nextTick(() => {
+      // 空格与~监听
+      document.onkeydown = function(e){
+        let el = e || event || window.event || arguments.callee.caller.arguments[0]
+        if(el && el.code == 'Space'){
+          that.handlQuick('+')
+        }else if(el && el.code == 'Backquote'){
+          that.handlQuick('-')
+        }
+      }
+    })
   },
   methods: {
     init(){
       this.yibao_zyyp = require("../../static/jsonZyyp/zyyp.json")
+      let PPHH = Storage.get("ZYYP")
+      if(PPHH){
+        PPHH = JSON.parse(PPHH)
+        this.query.sort = PPHH.sort
+        this.query.hanghao = PPHH.hanghao
+        this.query.ypmc = PPHH.ypmc
+        this.query.index = PPHH.index
+      }else{
+        this.query.ypmc = this.yibao_zyyp[this.query.index].tymc
+      }
     },
     handleInfo(res, name){
       let file = res.files[0]
@@ -220,17 +242,8 @@ export default {
       reader.onload = function (evt) { //读取完文件之后会回来这里
         let fileString = evt.target.result; // 读取文件内容
         let str = JSON.parse(fileString)
-        let PPHH = Storage.get("ZYYP")
-        if(PPHH){
-          PPHH = JSON.parse(PPHH)
-          that.query.sort = PPHH.sort
-          that.query.hanghao = PPHH.hanghao
-          that.query.ypmc = PPHH.ypmc
-          that.query.index = PPHH.index
-        }else{
-          that.handlStorage()
-        }
         that[name] = Object.assign([], str)
+        that.handlStorage()
       }
     },
     handlCopyZhl(row){
@@ -244,7 +257,7 @@ export default {
       document.addEventListener('copy',save);
       document.execCommand("copy");
       document.removeEventListener('copy',save);
-      this.$message.success("已复制智慧脸数据，请粘贴使用！")
+      this.$message.success("已复制商品数据，请粘贴使用！")
     },
     handlCopyYb(row){
       let str = 'A' + (Number(row.xh) + 2)
@@ -256,7 +269,7 @@ export default {
       document.execCommand("copy");
       document.removeEventListener('copy',save);
       
-      this.$message.success("已复制医保文档序号，请粘贴使用！")
+      this.$message.success("已复制医保中药饮片文档序号，请粘贴使用！")
     },
     handlQuick(v){
       if(!this.quanbu_yp.length){
@@ -295,7 +308,7 @@ export default {
       this.query.hanghao = Number(this.yibao_zyyp[this.query.index].xh) + 2
       this.query.ypmc = this.yibao_zyyp[this.query.index].tymc
       Storage.set("ZYYP", JSON.stringify({hanghao: this.query.hanghao, ypmc: this.query.ypmc, sort: this.query.sort, index: this.query.index}))
-      this.handleSearch()
+      this.handleSearch(v)
     },
     handlStorage(isSort){
       if(isSort){
@@ -318,7 +331,7 @@ export default {
           return false
         }
         this.query.hanghao = Number(str[0].xh) + 2
-        this.query.ypmc = str[0].pp
+        this.query.ypmc = str[0].tymc
       }else{
         if(this.query.sort){
           this.query.index = this.yibao_zyyp.length - 1
@@ -326,12 +339,12 @@ export default {
           this.query.index = 0
         }
         this.query.hanghao = Number(this.yibao_zyyp[this.query.index].xh) + 2
-        this.query.ypmc = this.yibao_zyyp[this.query.index].pp
+        this.query.ypmc = this.yibao_zyyp[this.query.index].tymc
       }
       Storage.set("ZYYP", JSON.stringify({hanghao: this.query.hanghao, ypmc: this.query.ypmc, sort: this.query.sort, index: this.query.index}))
       this.handleSearch()
     },
-    handleSearch(){
+    handleSearch(v){
       if(!this.query.ypmc){
         this.$message.error("查询条件不得为空！")
         return false
@@ -343,23 +356,17 @@ export default {
       this.loading = true
       let leftList = []
       leftList = this.quanbu_yp.filter(res => {
-        return res.pzwh.includes(this.query.ypmc)
+        return res.tymc.includes(this.query.ypmc)
       })
-      if(!leftList.length){
-        this.handlQuick('+')
-        return false
-      }
+      // if(!leftList.length){
+      //   this.handlQuick(v)
+      //   return false
+      // }
       this.leftTableData = Object.assign([], leftList)
-      this.rightTableData = Object.assign([], this.yibao_zyyp[this.query.hanghao - 2])
+      this.rightTableData = [this.yibao_zyyp[this.query.index]]
       this.leftHeight = 30 * this.leftTableData.length
       this.rightHeight = 30 * this.rightTableData.length
       this.loading = false
-    }
-  },
-  beforeDestroy() {
-    if (this.timer) {
-      clearInterval(this.timer)
-      this.index = 0
     }
   }
 }
