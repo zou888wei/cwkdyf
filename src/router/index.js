@@ -22,6 +22,8 @@ const drugMatching = () =>
     import ( /* webpackChunkName: "yaopin" */ "@/views/drugMatching")
 const drugMatching18W = () =>
     import ( /* webpackChunkName: "yaopin18" */ "@/views/drugMatching18W")
+const drugMatching18WNew = () =>
+    import ( /* webpackChunkName: "yaopin18new" */ "@/views/drugMatching18WNew")
 const drugZyyp = () =>
     import ( /* webpackChunkName: "zyyp" */ "@/views/drugZyyp")
 
@@ -83,6 +85,11 @@ const router = new VueRouter({
             path: '/drugMatching18W',
             name: 'DrugMatching18W',
             component: drugMatching18W
+        },
+        {
+            path: '/drugMatching18WNew',
+            name: 'DrugMatching18WNew',
+            component: drugMatching18WNew
         },
         {
             path: '/drugZyyp',

@@ -38,6 +38,7 @@
           <div><img src="./img/hb.jpg" alt=""></div>
           <div class="text-gray-300" @click="handleGoRoute">18W药品匹配</div>
           <div class="text-gray-300" @click="handleGoRoute2">中药饮片</div>
+          <div class="text-gray-300" @click="handleGoRoute3">新——18W药品匹配</div>
         </div>
       </div>
     </div>
@@ -59,6 +60,10 @@ export default {
     handleGoRoute2(){
       this.$message.warning("正在进入中药饮片匹配中，请稍等...")
       this.$router.push('/drugZyyp')
+    },
+    handleGoRoute3(){
+      this.$message.warning("正在进入新————18万数据匹配中，请稍等...")
+      this.$router.push('/drugMatching18WNew')
     }
   }
 }
