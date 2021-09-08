@@ -264,7 +264,6 @@ export default {
         {
           label: "医保文档行号",
           align: "center",
-          prop: "xh",
           formatter: row => {
             return "A" + (Number(row.xh) + 2)
           }

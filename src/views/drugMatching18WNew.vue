@@ -191,7 +191,6 @@ export default {
         {
           label: "医保文档行号",
           align: "center",
-          prop: "xh",
           formatter: row => {
             return "A" + (Number(row.xh) + 2)
           }
@@ -315,7 +314,7 @@ export default {
         that[name] = Object.assign([], str)
         that.cfypList = []
         if(PPHH){
-          that.$confirm("是否重新开始？行号归1", "提示", {
+          that.$confirm("是否为新店，是的话请点击确定重置缓存，行号归1，否则请点取消", "提示", {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
@@ -337,7 +336,7 @@ export default {
     },
     handlCopyZhl(row){
       let list = []
-      list.push(row.xh, row.spfl, row.fxh, row.tymc, row.spbm);
+      list.push(row.xh, row.spfl, row.xh, row.tymc, row.spbm);
       let str = list.join("\t")
       let save = function (e){
         e.clipboardData.setData('text/plain',str); 
@@ -451,7 +450,7 @@ export default {
       let isCf = false
       if(this.cfypList.includes(String(hh))){
         this.$message({
-          message: "该数据已经做过，可以选择跳过！",
+          message: "重复数据，该数据在此之前匹配过，可以选择跳过！",
           type: "error",
           duration: 1000
         })
