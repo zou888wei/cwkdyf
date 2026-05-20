@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NProgress from "nprogress"
 
 Vue.use(VueRouter)
 const HomePage = () =>
@@ -99,6 +100,12 @@ const router = new VueRouter({
     ]
 });
 
+/* 开启进度条 */
+router.beforeEach((to, from, next) => {
+    NProgress.start()
+    next()
+  })
+  
 router.beforeEach((to, from, next) => {
     if (to.path == '/') {
         next('/home')
@@ -115,5 +122,10 @@ router.onError((error) => {
         router.replace(targetPath);
     }
 });
+
+/* 关闭进度条 */
+router.afterEach(() => {
+    NProgress.done()
+  })
 
 export default router;
